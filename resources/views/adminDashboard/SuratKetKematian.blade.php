@@ -38,8 +38,8 @@
         <div>
             <div class="d-flex">
 
-                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#cretaeDataMasyarakat" style="margin-right: 15px">Tambah Data Kematian</button>
-                <form action="/surat-keterangan-kematian" method="GET" style="margin-left: 40%">
+                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#cretaeDataMasyarakat" style="margin-right: 15px">Tambah Penduduk</button>
+                <form action="/data-penduduk" method="GET" style="margin-left: 40%">
 
                     <input type="text" id="cari" name="cari" placeholder="Cari NIK/No KK/Nama">
                     <button type="submit" class="btn btn-success">Cari</button>

@@ -4,7 +4,7 @@
     </button>
     <div class="w-100" style="vertical-align: middle">
         <h5 style="text-align: center; vertical-align: middle; color: white; text-transform: uppercase">SISTEM INFORMASI PELAYANAN DAN PENGELOLAAN
-            DATA KEPENDUDUKAN</h5>
+            DATA PERTANAHAN</h5>
     </div>
 
 </header>

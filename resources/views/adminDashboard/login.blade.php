@@ -32,9 +32,10 @@
         @endif
         <form action="/authenticate" method="POST">
             @csrf
-
-            <h1 class="h3 mb-3 fw-normal"><b>Sign in to Your Acount</b></h1>
-            <p class="text-muted" style="font-size: 12px; margin-top: -8px;">Silakan masukan Username dan Password anda</p>
+            <div class="d-flex justify-content-center px-2"><img src="{{asset('images/logo/sragen.webp')}}" id="foto" alt="Logo" height="120px" /></div>
+            <h1 class="h3 mb-3 fw-normal"><b>DESA GENENGDUWUR</b></h1>
+            <p class="text-muted" style="font-size: 14px; margin-top: -8px;">KECAMATAN GEMOLONG, KABUPATEN SRAGEN, PROVINSI JAWA TENGAH</p>
+            <p class="text-muted" style="font-size: 12px; margin-top: -8px;">Jl. Gemolong - Sragen No KM.01</p>
 
             <div>
                 <input style="height: 55px" type="text" class="form-control" id="userName" name="userName" placeholder="Username" autocomplete="off">

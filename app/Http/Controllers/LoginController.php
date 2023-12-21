@@ -33,10 +33,10 @@ class LoginController extends Controller
         ]);
 
         if (auth()->attempt(array('userName' => $input['userName'], 'password' => $input['password']))) {
-            if (auth()->user()->role == 'staff') {
-                return redirect()->route('admin');
-            } else if (auth()->user()->role == 'masyarakat') {
-                return redirect()->route('masyarakat');
+            if (auth()->user()->role == 'kaspem') {
+                return redirect()->route('kaspem');
+            } else if (auth()->user()->role == 'kades') {
+                return redirect()->route('kades');
             }
         } else {
             return redirect()->route('login')

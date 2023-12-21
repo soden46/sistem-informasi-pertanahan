@@ -23,11 +23,11 @@
                     <a href="data-penduduk" style="text-decoration: none; color: black">
                         <div class="d-flex">
                             <div style="width: 12rem">
-                                <h6 style="color: indigo">Jumlah Penduduk</h6>
-                                <h4>{{ $jumlahMasyarakat }} Penduduk</h4>
+                                <h6 style="color: indigo">Tanah</h6>
+                                <h4> Tanah</h4>
                             </div>
                             <div style="width: 4rem; ">
-                                <h1><span style="color: black; vertical-align: middle" class="bi bi-people"></span></h1>
+                                <h1><span style="color: black; vertical-align: middle" class="bi bi-triangle-fill"></span></h1>
                             </div>
                         </div>
                         <div class="card-footer border bg-transparent" style="width: 100%">View Details</div>
@@ -40,11 +40,11 @@
                 <a href="surat-keterangan-kelahiran" style="text-decoration: none; color: black">
                     <div class="d-flex">
                         <div style="width: 12rem">
-                            <h6 style="color: green">Jumlah Kelahiran</h6>
-                            <h4>{{ $jumlahLahir }} Kelahiran</h4>
+                            <h6 style="color: green">Data Persil</h6>
+                            <h4> Persil</h4>
                         </div>
                         <div style="width: 4rem; ">
-                            <h1><span style="color: black; vertical-align: middle" class="mainIcon bi bi-person-badge"></span></h1>
+                            <h1><span style="color: black; vertical-align: middle" class="mainIcon bi bi-folder2"></span></h1>
                         </div>
                     </div>
                     <div class="card-footer border bg-transparent" style="width: 100%">View Details</div>
@@ -56,11 +56,11 @@
                 <a href="surat-keterangan-kematian" style="text-decoration: none; color: black">
                     <div class="d-flex">
                         <div style="width: 12rem">
-                            <h6 style="color: red">Jumlah Kematian</h6>
-                            <h4>{{ $jumlahMati }} Kematian</h4>
+                            <h6 style="color: red">Data C Desa</h6>
+                            <h4>Dat C Desa</h4>
                         </div>
                         <div style="width: 4rem; ">
-                            <h1><span style="color: black; vertical-align: middle" class="mainIcon bi bi-person-badge"></span></h1>
+                            <h1><span style="color: black; vertical-align: middle" class="mainIcon bi bi-folder2"></span></h1>
                         </div>
                     </div>
                     <div class="card-footer border bg-transparent" style="width: 100%">View Details</div>
@@ -72,11 +72,11 @@
                 <a href="data-mutasi-masuk" style="text-decoration: none; color: black">
                     <div class="d-flex">
                         <div style="width: 12rem">
-                            <h6 style="color: green">Jumlah Mutasi Masuk</h6>
-                            <h4>{{ $jumlahMM }} Mutasi Masuk</h4>
+                            <h6 style="color: green">Data Pemilik Tanah</h6>
+                            <h4>Pemilik</h4>
                         </div>
                         <div style="width: 4rem; ">
-                            <h1><span style="color: black; vertical-align: middle" class="mainIcon bi bi-person-badge"></span></h1>
+                            <h1><span style="color: black; vertical-align: middle" class="mainIcon bi bi-folder2"></span></h1>
                         </div>
                     </div>
                     <div class="card-footer border bg-transparent" style="width: 100%">View Details</div>
@@ -88,8 +88,8 @@
                 <a href="data-mutasi-keluar" style="text-decoration: none; color: black">
                     <div class="d-flex">
                         <div style="width: 12rem">
-                            <h6 style="color: #1746a2">Jumlah Mutasi Keluar</h6>
-                            <h4>{{ $jumlahMK }} Mutasi Keluar</h4>
+                            <h6 style="color: #1746a2">Permohonan Informasi</h6>
+                            <h4> Permohonan</h4>
                         </div>
                         <div style="width: 4rem; ">
                             <h1><span style="color: black; vertical-align: middle" class="bi bi-file-earmark-text"></span></h1>

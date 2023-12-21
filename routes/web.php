@@ -1,26 +1,16 @@
 <?php
 
-use App\Http\Controllers\admin\AdminController;
-use App\Http\Controllers\admin\DataKeluargaController;
-use App\Http\Controllers\admin\MasyarakatController;
-use App\Http\Controllers\admin\MutasiKeluarController;
-use App\Http\Controllers\admin\MutasiMAsukController;
-use App\Http\Controllers\admin\SuratKetKelahiranController;
-use App\Http\Controllers\admin\SuratKetKematianController;
-use App\Http\Controllers\admin\SuratKetBedaNamaController;
-use App\Http\Controllers\admin\SuratKetStatusController;
-use App\Http\Controllers\admin\SuratKetBiasaController;
-use App\Http\Controllers\admin\UserController;
+use App\Http\Controllers\kaspem\AdminController;
+
+use App\Http\Controllers\kaspem\UserController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\kaspem\DataCTanahController;
+use App\Http\Controllers\kaspem\DataDesacController;
+use App\Http\Controllers\kaspem\DataPemilikTanahController;
+use App\Http\Controllers\kaspem\DataPermohonanInformasiController;
+use App\Http\Controllers\kaspem\DataPersilController;
+use App\Http\Controllers\kaspem\DataTanahController;
 use App\Http\Controllers\LoginController;
-use App\Http\Controllers\warga\WargaController;
-use App\Http\Controllers\warga\WargaMutasiKeluarController;
-use App\Http\Controllers\warga\WArgaMutasiMAsukController;
-use App\Http\Controllers\warga\WargaSuratKetKelahiranController;
-use App\Http\Controllers\warga\WargaSuratKetKematianController;
-use App\Http\Controllers\warga\WargaSuratKetBedaNamaController;
-use App\Http\Controllers\warga\WargaSuratKetStatusController;
-use App\Http\Controllers\warga\WargaSuratKetBiasaController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -43,110 +33,55 @@ Route::post('/authenticate', [LoginController::class, 'authenticate']);
 Route::get('/logout', [LoginController::class, 'logout'])->name('guest');
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth');
 
-// Route Akun Admin/Staff
-Route::middleware(['auth', 'role:staff'])->group(function () {
+// Route Akun Kaspem
+Route::middleware(['auth', 'role:kaspem'])->group(function () {
     Route::controller(AdminController::class)->group(function () {
-        Route::get('/admin', 'index')->name('admin');
+        Route::get('/kaspem', 'index')->name('kaspem');
     });
 
-    Route::controller(MasyarakatController::class)->group(function () {
-        Route::get('/data-penduduk', 'index')->name('data-penduduk')->middleware('auth');
-        Route::post('/data-penduduk/store', 'store')->name('data-penduduk/store')->middleware('auth');
-        Route::post('/data-penduduk/{nik}', 'update')->name('data-penduduk/update')->middleware('auth');
-        Route::delete('/data-penduduk/{nik}', 'destroy')->name('data-penduduk')->middleware('auth');
+    Route::controller(DataTanahController::class)->group(function () {
+        Route::get('/data-tanah', 'index')->name('data-tanah')->middleware('auth');
+        Route::post('/data-tanah/store', 'store')->name('data-tanah/store')->middleware('auth');
+        Route::post('/data-tanah/{id}', 'update')->name('data-tanah/update')->middleware('auth');
+        Route::delete('/data-tanah/{id}', 'destroy')->name('data-tanah')->middleware('auth');
     });
 
-    Route::controller(DataKeluargaController::class)->group(
+    Route::controller(DataPersilController::class)->group(function () {
+        Route::get('/data-persil', 'index')->name('data-persil')->middleware('auth');
+        Route::post('/data-persil/store', 'store')->name('data-persil/store')->middleware('auth');
+        Route::post('/data-persil/{id}', 'update')->name('data-persil/update')->middleware('auth');
+        Route::delete('/data-persil/{id}', 'destroy')->name('data-persil')->middleware('auth');
+    });
+
+    Route::controller(DataCTanahController::class)->group(
         function () {
-            Route::get('/data-keluarga/{no_kk}', 'index')->name('data-keluarga')->middleware('auth');
-            Route::get('/data-keluarga/{no_kk}', 'index')->name('data-keluarga/cari')->middleware('auth');
-            Route::post('/data-keluarga/store', 'store')->name('data-keluarga/store')->middleware('auth');
-            Route::post('/data-keluarga/{nik}', 'update')->name('data-keluarga')->middleware('auth');
-            Route::delete('/data-keluarga/{nik}', 'destroy')->name('data-keluarga')->middleware('auth');
+            Route::get('/data-c-tanah', 'index')->name('data-c-tanah')->middleware('auth');
+            Route::get('/data-c-tanah/{id_c_desa}', 'index')->name('data-c-tanah/cari')->middleware('auth');
+            Route::post('/data-c-tanah/store', 'store')->name('data-c-tanah/store')->middleware('auth');
+            Route::post('/data-c-tanah/{id_c_desa}', 'update')->name('data-c-tanah/update')->middleware('auth');
+            Route::delete('/data-c-tanah/{id_c_desa}', 'destroy')->name('data-c-tanah')->middleware('auth');
         }
     );
 
-    Route::controller(SuratKetKelahiranController::class)->group(
+    Route::controller(DataPemilikTanahController::class)->group(
         function () {
-            Route::get('/surat-keterangan-kelahiran', 'index')->name('surat-keterangan-kelahiran')->middleware('auth');
-            Route::post('/surat-keterangan-kelahiran/save', 'save')->name('surat-keterangan-kelahiran/save')->middleware('auth');
-            Route::post('/surat-keterangan-kelahiran/{nik_bayi}', 'update')->name('surat-keterangan-kelahiran')->middleware('auth');
-            Route::delete('/surat-keterangan-kelahiran/{nik_bayi}', 'destroy')->name('surat-keterangan-kelahiran')->middleware('auth');
-            Route::get('/surat-keterangan-kelahiran/pdf/{nik_bayi}', 'pdf')->name('surat-keterangan-kelahiran/pdf')->middleware('auth');
-            Route::get('/surat-keterangan-kelahiran/pdflurah/{nik_bayi}', 'pdflurah')->name('surat-keterangan-kelahiran/pdflurah')->middleware('auth');
+            Route::get('/data-pemilik-tanah', 'index')->name('data-pemilik-tanah')->middleware('auth');
+            Route::post('/data-pemilik-tanah/store', 'save')->name('data-pemilik-tanah/store')->middleware('auth');
+            Route::post('/data-pemilik-tanah/{id_pemilik}', 'update')->name('data-pemilik-tanah')->middleware('auth');
+            Route::delete('/data-pemilik-tanah/{id_pemilik}', 'destroy')->name('data-pemilik-tanah')->middleware('auth');
+            Route::get('/data-pemilik-tanah/pdf/{id_pemilik}', 'pdf')->name('data-pemilik-tanah/pdf')->middleware('auth');
+            Route::get('/data-pemilik-tanah/pdflurah/{id_pemilik}', 'pdflurah')->name('data-pemilik-tanah/pdflurah')->middleware('auth');
         }
     );
 
-    Route::controller(SuratKetKematianController::class)->group(
+    Route::controller(DataPermohonanInformasiController::class)->group(
         function () {
-            Route::get('/surat-keterangan-kematian', 'index')->name('surat-keterangan-kematian')->middleware('auth');
-            Route::post('/surat-keterangan-kematian/save', 'store')->name('surat-keterangan-kematian/save')->middleware('auth');
-            Route::post('/surat-keterangan-kematian/{nik_mati}', 'update')->name('surat-keterangan-kematian')->middleware('auth');
-            Route::delete('/surat-keterangan-kematian/{nik_mati}', 'destroy')->name('surat-keterangan-kematian')->middleware('auth');
-            Route::get('/surat-keterangan-kematian/pdf/{nik_mati}', 'pdf')->name('surat-keterangan-kematian/pdf')->middleware('auth');
-            Route::get('/surat-keterangan-kematian/pdflurah/{nik_mati}', 'pdflurah')->name('surat-keterangan-kematian/pdflurah')->middleware('auth');
-        }
-    );
-
-    Route::controller(UserController::class)->group(
-        function () {
-            Route::get('/other-account', 'index')->name('other-account')->middleware('auth');
-            Route::post('/other-account/store', 'store')->name('other-account/store')->middleware('auth');
-            Route::post('/other-account/update/{id}', 'updateMyAcount')->name('other-account/update')->middleware('auth');
-            Route::delete('/other-account/delete/{id}', 'destroy')->name('other-account/delete')->middleware('auth');
-        }
-    );
-
-    Route::controller(MutasiMAsukController::class)->group(
-        function () {
-            Route::get('/data-mutasi-masuk', 'index')->name('data-mutasi-masuk')->middleware('auth');
-            Route::post('/data-mutasi-masuk/store', 'store')->name('data-mutasi-masuk/store')->middleware('auth');
-            Route::post('/data-mutasi-masuk/update/{nik_mm}', 'update')->name('data-mutasi-masuk/update')->middleware('auth');
-            Route::delete('/data-mutasi-masuk/delete/{nik_mm}', 'destroy')->name('data-mutasi-masuk/delete')->middleware('auth');
-            Route::get('/data-mutasi-masuk/pdf/{nik_mm}', 'pdf')->name('data-mutasi-masuk/pdf')->middleware('auth');
-        }
-    );
-
-    Route::controller(MutasiKeluarController::class)->group(
-        function () {
-            Route::get('/data-mutasi-keluar', 'index')->name('data-mutasi-keluar')->middleware('auth');
-            Route::post('/data-mutasi-keluar/store', 'store')->name('data-mutasi-keluar/store')->middleware('auth');
-            Route::post('/data-mutasi-keluar/update/{nik_mk}', 'update')->name('data-mutasi-keluar/update')->middleware('auth');
-            Route::delete('/data-mutasi-keluar/delete/{nik_mk}', 'destroy')->name('data-mutasi-keluar/delete')->middleware('auth');
-            Route::get('/data-mutasi-keluar/pdf/{nik_mk}', 'pdf')->name('data-mutasi-keluar/pdf')->middleware('auth');
-        }
-    );
-
-    Route::controller(SuratKetBedaNamaController::class)->group(
-        function () {
-            Route::get('/surat-ket-beda-nama', 'index')->name('surat-ket-beda-nama')->middleware('auth');
-            Route::post('/surat-ket-beda-nama/store', 'store')->name('surat-ket-beda-nama/store')->middleware('auth');
-            Route::post('/surat-ket-beda-nama/verif/{nik}', 'update')->name('surat-ket-beda-nama/verif')->middleware('auth');
-            Route::delete('/surat-ket-beda-nama/delete/{nik}', 'destroy')->name('surat-ket-beda-nama/delete')->middleware('auth');
-            Route::get('/surat-keterangan-beda-nama/pdf/{nik}', 'pdf')->name('surat-keterangan-beda-nama/pdf')->middleware('auth');
-            Route::get('/surat-keterangan-beda-nama/pdf/lurah/{nik}', 'pdflurah')->name('surat-keterangan-beda-nama/pdflurah')->middleware('auth');
-        }
-    );
-
-    Route::controller(SuratKetStatusController::class)->group(
-        function () {
-            Route::get('/surat-keterangan-status', 'index')->name('surat-keterangan-status')->middleware('auth');
-            Route::post('/surat-keterangan-status/store', 'store')->name('surat-keterangan-status/store')->middleware('auth');
-            Route::post('/surat-keterangan-status/{nik}', 'update')->name('surat-keterangan-status/verif')->middleware('auth');
-            Route::delete('/surat-keterangan-status/delete/{nik}', 'destroy')->name('surat-keterangan-status/delete')->middleware('auth');
-            Route::get('/surat-keterangan-status/pdf/{nik}', 'pdf')->name('surat-keterangan-status/pdf')->middleware('auth');
-            Route::get('/surat-keterangan-status/pdf/lurah/{nik}', 'pdflurah')->name('surat-keterangan-status/pdflurah')->middleware('auth');
-        }
-    );
-
-    Route::controller(SuratKetBiasaController::class)->group(
-        function () {
-            Route::get('/surat-keterangan-biasa', 'index')->name('surat-keterangan-biasa')->middleware('auth');
-            Route::post('/surat-keterangan-biasa/store', 'store')->name('surat-keterangan-biasa/store')->middleware('auth');
-            Route::post('/surat-keterangan-biasa/{nik}', 'update')->name('surat-keterangan-biasa/verif')->middleware('auth');
-            Route::delete('/surat-keterangan-biasa/delete/{nik}', 'destroy')->name('surat-keterangan-status/delete')->middleware('auth');
-            Route::get('/surat-keterangan-biasa/pdf/{nik}', 'pdf')->name('surat-keterangan-biasa/pdf')->middleware('auth');
-            Route::get('/surat-keterangan-biasa/pdf/lurah/{nik}', 'pdflurah')->name('surat-keterangan-biasa/pdflurah')->middleware('auth');
+            Route::get('/permohonan-informasi', 'index')->name('permohonan-informasi')->middleware('auth');
+            Route::post('/permohonan-informasi/save', 'store')->name('permohonan-informasi/save')->middleware('auth');
+            Route::post('/permohonan-informasi/{nik_mati}', 'update')->name('permohonan-informasi')->middleware('auth');
+            Route::delete('/permohonan-informasi/{nik_mati}', 'destroy')->name('permohonan-informasi')->middleware('auth');
+            Route::get('/permohonan-informasi/pdf/{nik_mati}', 'pdf')->name('permohonan-informasi/pdf')->middleware('auth');
+            Route::get('/permohonan-informasi/pdflurah/{nik_mati}', 'pdflurah')->name('permohonan-informasi/pdflurah')->middleware('auth');
         }
     );
 });
