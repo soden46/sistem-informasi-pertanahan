@@ -38,7 +38,7 @@
         <div>
             <div class="d-flex">
 
-                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#cretaeDataCDesa" style="margin-right: 15px">Tambah Persil</button>
+                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#cretaeDataCDesa" style="margin-right: 15px">Tambah Data C Desa</button>
                 <form action="/data-c-desa" method="GET" style="margin-left: 40%">
 
                     <input type="text" id="cari" name="cari" placeholder="Cari NIK/No KK/Nama">
@@ -122,7 +122,7 @@
                                 <div class="mb-3">
                                     <label for="id_history" class="form-label"><b>ID History</b></label>
 
-                                    <input type="text" name="id_history" id="id_history" class="form-control @error('id_history') is-invalid @enderror" required value="{{ old('id_history') }}" autocomplete="off" placeholder="Input ID Persil">
+                                    <input type="text" name="id_history" id="id_history" class="form-control @error('id_history') is-invalid @enderror" required value="{{ old('id_history') }}" autocomplete="off" placeholder="Input ID History">
 
                                     @error('id_history')
                                     <div class="invalid-feedback">
@@ -180,30 +180,6 @@
                                 </div>
 
                                 <div class="mb-3">
-                                    <label for="dijual" class="form-label"><b>Dijual</b></label>
-
-                                    <input type="date" name="dijual" id="dijual" class="form-control @error('dijual') is-invalid @enderror" required value="{{ old('dijual') }}" autocomplete="off" placeholder="Input Tanggal Dijual">
-
-                                    @error('dijual')
-                                    <div class="invalid-feedback">
-                                        <p style="text-align: left">{{ $message }}</p>
-                                    </div>
-                                    @enderror
-                                </div>
-
-                                <div class="mb-3">
-                                    <label for="sisa" class="form-label"><b>Sisa</b></label>
-
-                                    <input type="number" step="0.1" min="0" name="sisa" id="sisa" class="form-control @error('sisa') is-invalid @enderror" required value="{{ old('sisa') }}" autocomplete="off" placeholder="Input Sisa Tanah">
-
-                                    @error('sisa')
-                                    <div class="invalid-feedback">
-                                        <p style="text-align: left">{{ $message }}</p>
-                                    </div>
-                                    @enderror
-                                </div>
-
-                                <div class="mb-3">
                                     <label for="keterangan" class="form-label"><b>Keterangan</b></label>
 
                                     <input type="text" name="keterangan" id="keterangan" class="form-control @error('keterangan') is-invalid @enderror" required value="{{ old('keterangan') }}" autocomplete="off" placeholder="Input ID Kades">
@@ -218,7 +194,7 @@
                                 <div class="mb-3">
                                     <label for="batas_utara" class="form-label"><b>Batas Utara</b></label>
 
-                                    <input type="text" name="batas_utara" id="batas_utara" class="form-control @error('batas_utara') is-invalid @enderror" required value="{{ old('batas_utara') }}" autocomplete="off" placeholder="Input ID Kades">
+                                    <input type="text" name="batas_utara" id="batas_utara" class="form-control @error('batas_utara') is-invalid @enderror" required value="{{ old('batas_utara') }}" autocomplete="off" placeholder="Input Batas Utara">
 
                                     @error('batas_utara')
                                     <div class="invalid-feedback">
@@ -230,7 +206,7 @@
                                 <div class="mb-3">
                                     <label for="batas_timur" class="form-label"><b>Batas TImur</b></label>
 
-                                    <input type="text" name="batas_timur" id="batas_timur" class="form-control @error('batas_timur') is-invalid @enderror" required value="{{ old('batas_timur') }}" autocomplete="off" placeholder="Input ID Kades">
+                                    <input type="text" name="batas_timur" id="batas_timur" class="form-control @error('batas_timur') is-invalid @enderror" required value="{{ old('batas_timur') }}" autocomplete="off" placeholder="Input Batas Timur">
 
                                     @error('batas_timur')
                                     <div class="invalid-feedback">
@@ -242,7 +218,7 @@
                                 <div class="mb-3">
                                     <label for="batas_selatan" class="form-label"><b>Batas Selatan</b></label>
 
-                                    <input type="text" name="batas_selatan" id="batas_selatan" class="form-control @error('batas_selatan') is-invalid @enderror" required value="{{ old('batas_selatan') }}" autocomplete="off" placeholder="Input ID Kades">
+                                    <input type="text" name="batas_selatan" id="batas_selatan" class="form-control @error('batas_selatan') is-invalid @enderror" required value="{{ old('batas_selatan') }}" autocomplete="off" placeholder="Input Batas Selatan">
 
                                     @error('batas_selatan')
                                     <div class="invalid-feedback">
@@ -254,7 +230,7 @@
                                 <div class="mb-3">
                                     <label for="batas_barat" class="form-label"><b>Batas Barat</b></label>
 
-                                    <input type="text" name="batas_barat" id="batas_barat" class="form-control @error('batas_barat') is-invalid @enderror" required value="{{ old('batas_barat') }}" autocomplete="off" placeholder="Input ID Kades">
+                                    <input type="text" name="batas_barat" id="batas_barat" class="form-control @error('batas_barat') is-invalid @enderror" required value="{{ old('batas_barat') }}" autocomplete="off" placeholder="Input Batas Barat">
 
                                     @error('batas_barat')
                                     <div class="invalid-feedback">

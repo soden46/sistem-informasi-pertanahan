@@ -18,26 +18,8 @@
             }
         </style>
         <div class="col-md-3 mb-4">
-            <div class="col-md-3 mb-4">
-                <div class="card d-inline-flex mainMenu" style="width: 16rem; padding: 12px;  border-left: 5px solid indigo">
-                    <a href="data-penduduk" style="text-decoration: none; color: black">
-                        <div class="d-flex">
-                            <div style="width: 12rem">
-                                <h6 style="color: indigo">Tanah</h6>
-                                <h4> Tanah</h4>
-                            </div>
-                            <div style="width: 4rem; ">
-                                <h1><span style="color: black; vertical-align: middle" class="bi bi-triangle-fill"></span></h1>
-                            </div>
-                        </div>
-                        <div class="card-footer border bg-transparent" style="width: 100%">View Details</div>
-                    </a>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3 mb-4">
             <div class="card d-inline-flex mainMenu" style="width: 16rem; padding: 12px;  border-left: 5px solid green">
-                <a href="surat-keterangan-kelahiran" style="text-decoration: none; color: black">
+                <a href="data-persil" style="text-decoration: none; color: black">
                     <div class="d-flex">
                         <div style="width: 12rem">
                             <h6 style="color: green">Data Persil</h6>
@@ -53,7 +35,7 @@
         </div>
         <div class="col-md-3 mb-4">
             <div class="card d-inline-flex mainMenu" style="width: 16rem; padding: 12px;  border-left: 5px solid red">
-                <a href="surat-keterangan-kematian" style="text-decoration: none; color: black">
+                <a href="data-c-tanah" style="text-decoration: none; color: black">
                     <div class="d-flex">
                         <div style="width: 12rem">
                             <h6 style="color: red">Data C Desa</h6>
@@ -69,7 +51,7 @@
         </div>
         <div class="col-md-3 mb-4">
             <div class="card d-inline-flex mainMenu" style="width: 16rem; padding: 12px;  border-left: 5px solid green">
-                <a href="data-mutasi-masuk" style="text-decoration: none; color: black">
+                <a href="data-pemilik-tanah" style="text-decoration: none; color: black">
                     <div class="d-flex">
                         <div style="width: 12rem">
                             <h6 style="color: green">Data Pemilik Tanah</h6>
@@ -85,7 +67,7 @@
         </div>
         <div class="col-md-3 mb-4">
             <div class="card d-inline-flex mainMenu" style="width: 16rem; padding: 12px;  border-left: 5px solid #1746a2">
-                <a href="data-mutasi-keluar" style="text-decoration: none; color: black">
+                <a href="permohonan-informasi" style="text-decoration: none; color: black">
                     <div class="d-flex">
                         <div style="width: 12rem">
                             <h6 style="color: #1746a2">Permohonan Informasi</h6>

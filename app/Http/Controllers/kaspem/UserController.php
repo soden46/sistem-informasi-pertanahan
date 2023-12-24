@@ -21,7 +21,6 @@ class UserController extends Controller
     {
         return view('adminDashboard.otherAcount', [
             'title' => 'Other Acount',
-            'profil' => ProfilDesa::firstWhere('id', 1),
             'user' => User::all()
         ]);
     }
@@ -30,7 +29,6 @@ class UserController extends Controller
     {
         return view('adminDashboard.myAcount', [
             'title' => 'My Acount',
-            'profil' => ProfilDesa::firstWhere('id', 1),
             'user' => Auth::user()
         ]);
     }
@@ -40,7 +38,7 @@ class UserController extends Controller
         $validatedData = $request->validate([
             'name' => 'max:255',
             'userName' => ['unique:users', 'max:255'],
-            'status' => 'max:255',
+            'role' => 'max:255',
             'password' => 'max:15'
         ]);
 
@@ -80,7 +78,7 @@ class UserController extends Controller
         $validatedData = $request->validate([
             'name' => 'required|max:255',
             'userName' => ['required', 'unique:users', 'max:255'],
-            'status' => 'required|max:255',
+            'role' => 'required|max:255',
             'password' => [Password::min(8)->letters()->mixedCase()->numbers()]
         ]);
 
@@ -125,7 +123,7 @@ class UserController extends Controller
         $validatedData = $request->validate([
             'name' => 'max:255',
             'userName' => ['unique:users', 'max:255'],
-            'status' => 'max:255',
+            'role' => 'max:255',
             'password' => 'max:15'
         ]);
 

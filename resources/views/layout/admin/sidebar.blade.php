@@ -6,24 +6,21 @@
 <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
     <div class="d-flex">
         <div class="d-flex justify-content-start px-2"><img src="{{asset('images/logo/sragen.webp')}}" id="foto" alt="Logo" height="75px" /></div>
-        <div class="mt-3"><b>Desa Genengduwur</b></div>
+        <div class="mt-3"><b>Desa Genengduwur</b>
+            </br>
+            <b>Kasi Pemerintah</b>
+        </div>
     </div>
     <div class="position-sticky pt-3 sidebar-sticky">
         <ul class="nav flex-column">
             <li class="nav-item">
-                <a class="nav-link {{ Request::is('admin') ? 'active' : '' }}" aria-current="page" href="/admin">
+                <a class="nav-link {{ Request::is('kaspem') ? 'active' : '' }}" aria-current="page" href="/kaspem">
                     <span class="align-text-bottom bi bi-speedometer2"></span>
                     Dashboard
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link {{ Request::is('data-penduduk*') || Request::is('detail-tanah') ? 'active' : '' }}" href="/data-tanah">
-                    <span class="align-text-bottom bi bi-file-earmark-text"></span>
-                    Tanah
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link {{ Request::is('data-persil') ? 'active' : '' }}" href="/data-persil">
+                <a class="nav-link {{ Request::is('data-persil*') ? 'active' : '' }}" href="/data-persil">
                     <span class="align-text-bottom bi bi-file-earmark-text"></span>
                     Data Persil
                 </a>

@@ -85,7 +85,7 @@
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
 
-                            <form action="/other-account/store" method="post">
+                            <form action="{{route('other-account/store')}}" method="post">
                                 @csrf
                                 <div class="modal-body">
                                     <div class="mb-3">
@@ -113,12 +113,12 @@
                                     </div>
 
                                     <div class="mb-3">
-                                        <label for="status" class="form-label"><b>Status Acount</b></label>
+                                        <label for="role" class="form-label"><b>Status Acount</b></label>
 
-                                        <select class="form-select" name="status" id="status">
+                                        <select class="form-select" name="role" id="role">
                                             <option value="" selected>Select status acount</option>
-                                            <option value="Staff">Staff</option>
-                                            <option value="Masyarakat">Masyarakat</option>
+                                            <option value="kaspem">Kaspem</option>
+                                            <option value="kades">Kades</option>
                                         </select>
                                     </div>
 
@@ -143,7 +143,7 @@
 
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-warning" data-bs-dismiss="modal">Cancel</button>
-                                    <button type="submit" class="btn btn-primary">Created</button>
+                                    <button type="submit" class="btn btn-primary">Buat</button>
                                 </div>
                             </form>
                         </div>

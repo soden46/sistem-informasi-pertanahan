@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\kaspem;
+namespace App\Http\Controllers\kades;
 
 use App\Http\Controllers\Controller;
 use App\Models\DataPermohonanInformasi;
@@ -10,7 +10,7 @@ use App\Models\ProfilDesa;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 
-class DataPermohonanInformasiController extends Controller
+class KadesDataPermohonanInformasiController extends Controller
 {
     /**
      * Display a listing of the resource.

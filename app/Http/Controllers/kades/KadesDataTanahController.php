@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\kaspem;
+namespace App\Http\Controllers\kades;
 
 use App\Http\Controllers\Controller;
 use App\Models\DataKeluarga;
@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
-class DataTanahController extends Controller
+class KadesDataTanahController extends Controller
 {
     /**
      * Display a listing of the resource.

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\kaspem;
+namespace App\Http\Controllers\kades;
 
 use App\Http\Controllers\Controller;
 use App\Models\DataCDesa;
@@ -9,7 +9,7 @@ use App\Models\ProfilDesa;
 use Illuminate\Http\Request;
 
 
-class DataCTanahController extends Controller
+class KadesDataCTanahController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -76,29 +76,6 @@ class DataCTanahController extends Controller
 
         return redirect('/data-c-tanah')->with('successCreatedCDesa', 'Data has ben created');
     }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Penduduk  $masyarakat
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Penduduk $masyarakat)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Penduduk  $masyarakat
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Penduduk $masyarakat)
-    {
-        //
-    }
-
     /**
      * Update the specified resource in storage.
      *
