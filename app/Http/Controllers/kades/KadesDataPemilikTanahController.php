@@ -3,12 +3,7 @@
 namespace App\Http\Controllers\kades;
 
 use App\Http\Controllers\Controller;
-use App\Models\DataKeluarga;
 use App\Models\DataPemilikTanah;
-use App\Models\MutasiKeluar;
-use App\Models\MutasiMAsuk;
-use App\Models\Penduduk;
-use App\Models\ProfilDesa;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 
@@ -24,12 +19,12 @@ class KadesDataPemilikTanahController extends Controller
         $cari = $request->cari;
 
         if ($cari != NULL) {
-            return view('adminDashboard.DataPemilikTanah', [
+            return view('kadesDashboard.DataPemilikTanah', [
                 'title' => 'Data Pemilik Tanah',
                 'PemilikTanah' => DataPemilikTanah::where('id_pemilik', 'like', "%" . $cari . "%")->paginate(10)
             ]);
         } else {
-            return view('adminDashboard.DataPemilikTanah', [
+            return view('kadesDashboard.DataPemilikTanah', [
                 'title' => 'Data Pemilik Tanah',
                 'PemilikTanah' => DataPemilikTanah::paginate(10),
             ]);
@@ -92,12 +87,12 @@ class KadesDataPemilikTanahController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\MutasiKeluar  $keluarga
+     * @param  \App\Models\DataPemilikTanah  $keluarga
      * @return \Illuminate\Http\Response
      */
     public function destroy($nik_mk)
     {
-        MutasiKeluar::where('nik_mk', $nik_mk)->delete();
+        DataPemilikTanah::where('nik_mk', $nik_mk)->delete();
         return back()->with('successDeletedMasyarakat', 'Data has ben deleted');
     }
 
@@ -105,9 +100,7 @@ class KadesDataPemilikTanahController extends Controller
     {
         $data = [
             'title' => 'Mutasi Keluar',
-            'profil' => ProfilDesa::firstWhere('id', 1),
-            'surat' => MutasiKeluar::with('pend', 'kel1', 'kel2')->where('nik_mk', $nik_mk)->first(),
-            'pendu' => Penduduk::get(),
+            'surat' => DataPemilikTanah::with('pend', 'kel1', 'kel2')->where('nik_mk', $nik_mk)->first(),
         ];
         $customPaper = [0, 0, 567.00, 500.80];
         $pdf = PDF::loadView('adminDashboard.pdf.SuratMutasiKeluar', $data)->setPaper('customPaper', 'potrait');
@@ -118,9 +111,7 @@ class KadesDataPemilikTanahController extends Controller
     {
         $data = [
             'title' => 'Keterangan Biasa',
-            'profil' => ProfilDesa::firstWhere('id', 1),
-            'surat' => MutasiKeluar::with('pend')->where('nik_mk', $nik_mk)->first(),
-            'pendu' => Penduduk::get()
+            'surat' => DataPemilikTanah::with('pend')->where('nik_mk', $nik_mk)->first(),
         ];
 
         $customPaper = [0, 0, 567.00, 500.80];

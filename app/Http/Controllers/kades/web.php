@@ -136,6 +136,7 @@ Route::middleware(['auth', 'role:kades'])->group(function () {
             Route::delete('/kades/permohonan-informasi/{id_pemohon}', 'destroy')->name('kades/permohonan-informasi')->middleware('auth');
             Route::post('/kades/permohonan-informasi/verif/{id_pemohon}', 'update')->name('kades/permohonan-informasi/verif');
             Route::get('/kades/permohonan-informasi/pdf/{id_pemohon}', 'pdf')->name('kades/permohonan-informasi/pdf')->middleware('auth');
+            Route::get('/kades/permohonan-informasi/pdflurah/{id_pemohon}', 'pdflurah')->name('kades/permohonan-informasi/pdflurah')->middleware('auth');
         }
     );
 });

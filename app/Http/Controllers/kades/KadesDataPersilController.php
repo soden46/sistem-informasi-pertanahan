@@ -4,8 +4,6 @@ namespace App\Http\Controllers\kades;
 
 use App\Http\Controllers\Controller;
 use App\Models\DataPersil;
-use App\Models\Penduduk;
-use App\Models\ProfilDesa;
 use Illuminate\Http\Request;
 
 
@@ -21,14 +19,14 @@ class KadesDataPersilController extends Controller
         $cari = $request->cari;
 
         if ($cari != NULL) {
-            return view('adminDashboard.DataPersil', [
+            return view('kadesDashboard.DataPersil', [
                 'title' => 'Data Persil',
                 'persil' => DataPersil::where('id_persil', 'like', "%" . $cari . "%")
                     ->orWhere('lokasi', 'like', "%" . $cari . "%")
                     ->orWhere('luas_persil', 'like', "%" . $cari . "%")->paginate(10),
             ]);
         } else {
-            return view('adminDashboard.DataPersil', [
+            return view('kadesDashboard.DataPersil', [
                 'title' => 'Data Persil',
                 'persil' => DataPersil::paginate(10),
             ]);
@@ -63,7 +61,7 @@ class KadesDataPersilController extends Controller
         // dd($validatedData);
         DataPersil::create($validatedData);
 
-        return redirect('/data-persil')->with('successCreatedPersil', 'Data has ben created');
+        return redirect('kades/data-persil')->with('successCreatedPersil', 'Data has ben created');
     }
 
     /**
@@ -110,7 +108,7 @@ class KadesDataPersilController extends Controller
 
         DataPersil::where('id_persil', $id_persil)->update($validatedData);
 
-        return redirect('/data-persil')->with('successUpdatedPersil', 'Data has ben updated');
+        return redirect('kades/data-persil')->with('successUpdatedPersil', 'Data has ben updated');
     }
 
     /**
@@ -121,7 +119,7 @@ class KadesDataPersilController extends Controller
      */
     public function destroy($id_persil)
     {
-        Penduduk::where('id_persil', $id_persil)->delete();
-        return redirect('/data-penduduk')->with('successDeletedMasyarakat', 'Data has ben deleted');
+        DataPersil::where('id_persil', $id_persil)->delete();
+        return redirect('kades/data-penduduk')->with('successDeletedMasyarakat', 'Data has ben deleted');
     }
 }

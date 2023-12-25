@@ -4,9 +4,6 @@ namespace App\Http\Controllers\kades;
 
 use App\Http\Controllers\Controller;
 use App\Models\DataPermohonanInformasi;
-use App\Models\MutasiKeluar;
-use App\Models\Penduduk;
-use App\Models\ProfilDesa;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 
@@ -22,13 +19,13 @@ class KadesDataPermohonanInformasiController extends Controller
         $cari = $request->cari;
 
         if ($cari != NULL) {
-            return view('adminDashboard.DataPermohonanInformasi', [
+            return view('kadesDashboard.DataPermohonanInformasi', [
                 'title' => 'Data Permohon Informasi',
                 'permohonan' => DataPermohonanInformasi::where('id_pemohon', 'like', "%" . $cari . "%")
                     ->orWhere('id_persil', 'like', "%" . $cari . "%")->paginate(10),
             ]);
         } else {
-            return view('adminDashboard.DataPermohonanInformasi', [
+            return view('kadesDashboard.DataPermohonanInformasi', [
                 'title' => 'Data Permohon Informasi',
                 'permohonan' => DataPermohonanInformasi::paginate(10),
             ]);
@@ -75,10 +72,10 @@ class KadesDataPermohonanInformasiController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\MutasiKeluar  $masyarakat
+     * @param  \App\Models\DataPermohonanInformasi  $masyarakat
      * @return \Illuminate\Http\Response
      */
-    public function show(MutasiKeluar $masyarakat)
+    public function show(DataPermohonanInformasi $masyarakat)
     {
         //
     }
@@ -86,10 +83,10 @@ class KadesDataPermohonanInformasiController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\MutasiKeluar  $masyarakat
+     * @param  \App\Models\DataPermohonanInformasi  $masyarakat
      * @return \Illuminate\Http\Response
      */
-    public function edit(MutasiKeluar $masyarakat)
+    public function edit(DataPermohonanInformasi $masyarakat)
     {
         //
     }
@@ -98,10 +95,10 @@ class KadesDataPermohonanInformasiController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\MutasiKeluar  $masyarakat
+     * @param  \App\Models\DataPermohonanInformasi  $masyarakat
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, MutasiKeluar $MutasiKeluar, $nik_mk)
+    public function update(Request $request, DataPermohonanInformasi $MutasiKeluar, $nik_mk)
     {
         $validatedData = $request->validate([
             'nik_mk' => 'max:16',
@@ -141,7 +138,7 @@ class KadesDataPermohonanInformasiController extends Controller
         ]);
 
 
-        MutasiKeluar::where('nik_mk', $nik_mk)->update($validatedData);
+        DataPermohonanInformasi::where('nik_mk', $nik_mk)->update($validatedData);
 
         return back()->with('successUpdatedMasyarakat', 'Data has ben updated');
     }
@@ -149,35 +146,31 @@ class KadesDataPermohonanInformasiController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\MutasiKeluar  $keluarga
+     * @param  \App\Models\DataPermohonanInformasi  $keluarga
      * @return \Illuminate\Http\Response
      */
     public function destroy($nik_mk)
     {
-        MutasiKeluar::where('nik_mk', $nik_mk)->delete();
+        DataPermohonanInformasi::where('nik_mk', $nik_mk)->delete();
         return back()->with('successDeletedMasyarakat', 'Data has ben deleted');
     }
 
-    public function pdf($nik_mk)
+    public function pdf($id_pemohon)
     {
         $data = [
-            'title' => 'Mutasi Keluar',
-            'profil' => ProfilDesa::firstWhere('id', 1),
-            'surat' => MutasiKeluar::with('pend', 'kel1', 'kel2')->where('nik_mk', $nik_mk)->first(),
-            'pendu' => Penduduk::get(),
+            'title' => 'Data Permohonan Informasi',
+            'data' => DataPermohonanInformasi::where('id_pemohon', $id_pemohon)->first(),
         ];
         $customPaper = [0, 0, 567.00, 500.80];
-        $pdf = PDF::loadView('adminDashboard.pdf.SuratMutasiKeluar', $data)->setPaper('customPaper', 'potrait');
-        return $pdf->stream('surat-permohonan-mutasi-keluar.pdf');
+        $pdf = PDF::loadView('kadesDashboard.pdf.DataPermohonanInformasi', $data)->setPaper('customPaper', 'potrait');
+        return $pdf->stream('data-permohonan-informasi.pdf');
     }
 
     public function pdflurah($nik_mk)
     {
         $data = [
             'title' => 'Keterangan Biasa',
-            'profil' => ProfilDesa::firstWhere('id', 1),
-            'surat' => MutasiKeluar::with('pend')->where('nik_mk', $nik_mk)->first(),
-            'pendu' => Penduduk::get()
+            'surat' => DataPermohonanInformasi::with('pend')->where('nik_mk', $nik_mk)->first(),
         ];
 
         $customPaper = [0, 0, 567.00, 500.80];

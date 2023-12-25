@@ -17,26 +17,14 @@ class DashboardController extends Controller
         if (!auth()->check()) {
             abort(403);
         }
-        if (auth()->user()->role == 'staff') {
+        if (auth()->user()->role == 'kaspem') {
             return view('adminDashboard.index', [
-                'title' => 'Dashboard Admin',
-                'jumlahLahir' => SuratKetKelahiran::all()->count(),
-                'jumlahMasyarakat' => User::all()->count(),
-                'jumlahMati' => Kematian::all()->count(),
-                'jumlahMM' => MutasiMAsuk::all()->count(),
-                'jumlahMK' => MutasiKeluar::all()->count(),
-                'profil' => ProfilDesa::Where('id', 1)->first(),
+                'title' => 'Dashboard Kasepem',
             ]);
         }
-        if (auth()->user()->role == 'masyarakat') {
-            return view('wargaDashboard.index', [
-                'title' => 'Dashboard',
-                'jumlahLahir' => SuratKetKelahiran::all()->count(),
-                'jumlahMasyarakat' => User::all()->count(),
-                'jumlahMati' => Kematian::all()->count(),
-                'jumlahMM' => MutasiMAsuk::all()->count(),
-                'jumlahMK' => MutasiKeluar::all()->count(),
-                'profil' => ProfilDesa::Where('id', 1)->first(),
+        if (auth()->user()->role == 'kades') {
+            return view('kadesDashboard.index', [
+                'title' => 'Dashboard Kades',
             ]);
         }
     }

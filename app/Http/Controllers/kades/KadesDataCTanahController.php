@@ -4,8 +4,6 @@ namespace App\Http\Controllers\kades;
 
 use App\Http\Controllers\Controller;
 use App\Models\DataCDesa;
-use App\Models\Penduduk;
-use App\Models\ProfilDesa;
 use Illuminate\Http\Request;
 
 
@@ -21,14 +19,14 @@ class KadesDataCTanahController extends Controller
         $cari = $request->cari;
 
         if ($cari != NULL) {
-            return view('adminDashboard.DataCDesa', [
+            return view('kadesDashboard.DataCDesa', [
                 'title' => 'Data C Desa',
                 'cDesa' => DataCDesa::orWhere('id_c_desa', 'like', "%" . $cari . "%")
                     ->orWhere('kelas_tanah', 'like', "%" . $cari . "%")
                     ->orWhere('id_pemilik', 'like', "%" . $cari . "%")->paginate(10),
             ]);
         } else {
-            return view('adminDashboard.DataCDesa', [
+            return view('kadesDashboard.DataCDesa', [
                 'title' => 'Data C Desa',
                 'cDesa' => DataCDesa::paginate(10)
             ]);
@@ -74,13 +72,36 @@ class KadesDataCTanahController extends Controller
         // dd($validatedData);
         DataCDesa::create($validatedData);
 
-        return redirect('/data-c-tanah')->with('successCreatedCDesa', 'Data has ben created');
+        return redirect('kades/data-c-tanah')->with('successCreatedCDesa', 'Data has ben created');
     }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Models\DataCDesa  $masyarakat
+     * @return \Illuminate\Http\Response
+     */
+    public function show(DataCDesa $masyarakat)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Models\DataCDesa  $masyarakat
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(DataCDesa $masyarakat)
+    {
+        //
+    }
+
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Penduduk  $masyarakat
+     * @param  \App\Models\DataCDesa  $masyarakat
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id_c_desa)
@@ -115,12 +136,12 @@ class KadesDataCTanahController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Penduduk  $masyarakat
+     * @param  \App\Models\DataCDesa  $masyarakat
      * @return \Illuminate\Http\Response
      */
     public function destroy($nik)
     {
-        Penduduk::where('nik', $nik)->delete();
-        return redirect('/data-penduduk')->with('successDeletedMasyarakat', 'Data has ben deleted');
+        DataCDesa::where('nik', $nik)->delete();
+        return redirect('kades/data-c-tanah')->with('successDeletedMasyarakat', 'Data has ben deleted');
     }
 }

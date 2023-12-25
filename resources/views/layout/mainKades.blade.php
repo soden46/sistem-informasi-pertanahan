@@ -32,8 +32,8 @@
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://unpkg.com/bootstrap-show-password@1.2.1/dist/bootstrap-show-password.min.js"></script>
 
-    @include('../layout/warga/navbar')
-    @include('../layout/warga/sidebar')
+    @include('../layout/kades/navbar')
+    @include('../layout/kades/sidebar')
 
     <div class="container-fluid">
         <div class="row">
@@ -81,7 +81,7 @@
                     }
                 }
             </script>
-            @yield('wargaContent')
+            @yield('kadesContent')
         </div>
     </div>
 
