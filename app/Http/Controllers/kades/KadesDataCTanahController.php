@@ -70,7 +70,7 @@ class KadesDataCTanahController extends Controller
         ]);
 
         // dd($validatedData);
-        DataCDesa::create($validatedData);
+        $id = DataCDesa::create($validatedData);
 
         return redirect('kades/data-c-tanah')->with('successCreatedCDesa', 'Data has ben created');
     }

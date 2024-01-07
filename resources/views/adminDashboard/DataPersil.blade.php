@@ -58,25 +58,12 @@
                         <form action="{{route('data-persil/store')}}" method="post">
                             @csrf
                             <div class="modal-body">
-
                                 <div class="mb-3">
                                     <label for="id_persil" class="form-label"><b>ID Persil</b></label>
 
-                                    <input type="text" name="id_persil" id="id_persil" class="form-control @error('id_persil') is-invalid @enderror" required value="{{ old('id_persil') }}" autocomplete="off" placeholder="Input ID Persil">
+                                    <input type="text" name="id_persil" id="id_persil" class="form-control @error('id_persil') is-invalid @enderror" required value="{{ old('id_persil') }}" autocomplete="off" placeholder="Input ID Kades">
 
                                     @error('id_persil')
-                                    <div class="invalid-feedback">
-                                        <p style="text-align: left">{{ $message }}</p>
-                                    </div>
-                                    @enderror
-                                </div>
-
-                                <div class="mb-3">
-                                    <label for="id_kades" class="form-label"><b>ID Kades</b></label>
-
-                                    <input type="text" name="id_kades" id="id_kades" class="form-control @error('id_kades') is-invalid @enderror" required value="{{ old('id_kades') }}" autocomplete="off" placeholder="Input ID Kades">
-
-                                    @error('id_kades')
                                     <div class="invalid-feedback">
                                         <p style="text-align: left">{{ $message }}</p>
                                     </div>
@@ -116,30 +103,6 @@
                     </div>
                 </div>
             </div>
-
-            <!-- Modal delete all-->
-            <div class="modal fade" id="deleteAllData" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="deleteAllDataLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="deleteAllDataLabel">Hapus Seluruh Data Masyarakat</h1>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-
-                            <div class="mb-3">
-                                <p><b>Apakah anda yakin untuk menghapus seluruh data masyarakat? pastikan anda telah meng-export data untuk menanggulangi kesalahan</b></p>
-                            </div>
-
-
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-warning" data-bs-dismiss="modal">Cancel</button>
-                            <a href="deleteAllMasyarakat"><button type="submit" class="btn btn-primary">Delete</button></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
 
         <div class="table-responsive">
@@ -147,42 +110,39 @@
                 <tr>
                     <th>No</th>
                     <th>ID Persil</th>
-                    <th>ID Kades</th>
                     <th>Lokasi</th>
                     <th>Luas Persil</th>
-                    <th>Verifikasi</th>
                     <th style="text-align: center">Action</th>
                 </tr>
                 @foreach ($persil as $index => $item)
                 <tr style="width: 100%">
                     <td style="vertical-align: middle; width: 5%; ">{{ $index + $persil->firstItem() }}</td>
                     <td style="vertical-align: middle;  ">{{ $item->id_persil }}</td>
-                    <td style="vertical-align: middle;  ">{{ $item->id_kades }}</td>
                     <td style="vertical-align: middle;  ">{{ $item->lokasi }}</td>
                     <td style="vertical-align: middle;  ">{{ $item->luas_persil }}</td>
-                    <td style="text-align: center;  ">
+                    <!-- <td style="text-align: center;  ">
                         @if($item->verifikasi=="Belum Diverifikasi")
-                        <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#verifikasibayi{{ $item->id_persil }}">Verifikasi</button>
+                        <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#verifikasiPersil{{ $item->id_persil }}">Verifikasi</button>
                         @else
                         <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#batalverifikasi{{ $item->id_persil }}">Batal Verifikasi</button>
                         @endif
-                    </td>
+                    </td> -->
                     <td style="text-align: center;  ">
-                        <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#editbayi{{ $item->id_persil }}">Edit</button>
-                        <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#hapusverifikasi{{ $item->id_persil }}">Hapus</button>
+                        <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#editPersil{{ $item->id_persil }}">Edit</button>
+                        <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#hapusPersil{{ $item->id_persil }}">Hapus</button>
                     </td>
                 </tr>
 
                 <!-- Modal delete-->
-                <div class="modal fade" id="staticBackdrop{{ $item->nik}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal fade" id="hapusPersil{{ $item->id_persil}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="hapusPersilLabel" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h1 class="modal-title fs-5" id="staticBackdropLabel">Delete Data Persil</h1>
+                                <h1 class="modal-title fs-5" id="hapusPersilLabel">Delete Data Persil</h1>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                                <p>Apakah anda yakin untuk menghapus data <b>{{ $item->nama }}</b></p>
+                                <p>Apakah anda yakin untuk menghapus data persil dengan ID <b>{{ $item->id_persil }}</b></p>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-warning" data-bs-dismiss="modal">Cancel</button>
@@ -197,35 +157,23 @@
                 </div>
 
                 <!-- Modal edit-->
-                <div class="modal fade" id="editDataMasyarakat{{ $item->id_persil }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="editDataMasyarakatLabel" aria-hidden="true">
+                <div class="modal fade" id="editPersil{{ $item->id_persil }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="editPersilLabel" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h1 class="modal-title fs-5" id="editDataMasyarakatLabel">Edit Data Persil</h1>
+                                <h1 class="modal-title fs-5" id="editPersilLabel">Edit Data Persil</h1>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
-                            <form action="{{route('data-persil',$item->id_persil)}}" method="post">
+                            <form action="{{route('data-persil/update',$item->id_persil)}}" method="post">
                                 @csrf
                                 <div class="modal-body">
 
                                     <div class="mb-3">
                                         <label for="id_persil" class="form-label"><b>ID Persil</b></label>
 
-                                        <input type="text" name="id_persil" id="id_persil" class="form-control @error('id_persil') is-invalid @enderror" required value="{{ old('id_persil') }}" autocomplete="off" placeholder="Input ID Persil">
+                                        <input type="text" name="id_persil" id="id_persil" class="form-control @error('id_persil') is-invalid @enderror" required value="{{ old('id_persil') }}" autocomplete="off" placeholder="Input ID Kades">
 
                                         @error('id_persil')
-                                        <div class="invalid-feedback">
-                                            <p style="text-align: left">{{ $message }}</p>
-                                        </div>
-                                        @enderror
-                                    </div>
-
-                                    <div class="mb-3">
-                                        <label for="id_kades" class="form-label"><b>ID Kades</b></label>
-
-                                        <input type="text" name="id_kades" id="id_kades" class="form-control @error('id_kades') is-invalid @enderror" required value="{{ old('id_kades') }}" autocomplete="off" placeholder="Input ID Kades">
-
-                                        @error('id_kades')
                                         <div class="invalid-feedback">
                                             <p style="text-align: left">{{ $message }}</p>
                                         </div>

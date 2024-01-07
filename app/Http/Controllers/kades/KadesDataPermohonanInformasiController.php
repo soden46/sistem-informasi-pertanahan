@@ -4,6 +4,7 @@ namespace App\Http\Controllers\kades;
 
 use App\Http\Controllers\Controller;
 use App\Models\DataPermohonanInformasi;
+use App\Models\NoSurat;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 
@@ -51,7 +52,6 @@ class KadesDataPermohonanInformasiController extends Controller
     public function save(Request $request)
     {
         $validatedData = $request->validate([
-            'id_pemohon' => 'required',
             'id_persil' => 'required|max:16',
             'id_c_desa' => 'required|max:255',
             'nama_pemohon' => 'required|max:255',
@@ -64,8 +64,27 @@ class KadesDataPermohonanInformasiController extends Controller
         ]);
 
         // dd($validatedData);
-        DataPermohonanInformasi::create($validatedData);
+        $id = DataPermohonanInformasi::create($validatedData);
+        dd($id->id_pemohon);
 
+        // Ambil bulan saat ini dalam bentuk angka (1-12)
+        $bulanAngka = date('n');
+
+        // Daftar bulan Romawi
+        $bulanRomawi = [
+            1 => 'I', 2 => 'II', 3 => 'III', 4 => 'IV', 5 => 'V', 6 => 'VI',
+            7 => 'VII', 8 => 'VIII', 9 => 'IX', 10 => 'X', 11 => 'XI', 12 => 'XII'
+        ];
+
+        // Konversi angka bulan menjadi bulan Romawi
+        $bulanRomawiSekarang = $bulanRomawi[$bulanAngka];
+
+        NoSurat::create([
+            'id_surat' => $id->id_pemohon,
+            'nama_surat' => 'DPI',
+            'kebutuhan' => 'Permohonan Informasi',
+            'bulan_romawi' => $bulanRomawiSekarang,
+        ]);
         return back()->with('successCreatedPermohonan', 'Data has ben created');
     }
 
@@ -98,47 +117,22 @@ class KadesDataPermohonanInformasiController extends Controller
      * @param  \App\Models\DataPermohonanInformasi  $masyarakat
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, DataPermohonanInformasi $MutasiKeluar, $nik_mk)
+    public function update(Request $request, DataPermohonanInformasi $MutasiKeluar, $id_pemohon)
     {
         $validatedData = $request->validate([
-            'nik_mk' => 'max:16',
-            'alamat_tujuan_mk' => 'max:255',
-            'prov_tuju' => 'max:255',
-            'nik1' => 'max:16',
-            'nama1' => 'max:255',
-            'jk1' => 'max:255',
-            'agama1' => 'max:255',
-            'sts_kawin1' => 'max:255',
-            'ket_kel1' => 'max:255',
-            'nik2' => 'max:16',
-            'nama2' => 'max:255',
-            'jk2' => 'max:255',
-            'agama2' => 'max:255',
-            'sts_kawin2' => 'max:255',
-            'ket_kel2' => 'max:255',
-            'nik3' => 'max:16',
-            'nama3' => 'max:255',
-            'jk3' => 'max:255',
-            'agama3' => 'max:255',
-            'sts_kawin3' => 'max:255',
-            'ket_kel3' => 'max:255',
-            'nik5' => 'max:16',
-            'nama5' => 'max:255',
-            'jk5' => 'max:255',
-            'agama5' => 'max:255',
-            'sts_kawin5' => 'max:255',
-            'ket_kel5' => 'max:255',
-            'nik6' => 'max:16',
-            'nama6' => 'max:255',
-            'jk6' => 'max:255',
-            'agama6' => 'max:255',
-            'sts_kawin6' => 'max:255',
-            'ket_kel6' => 'max:255',
-            'verifikasi' => 'max:255'
+            'id_persil' => 'max:16',
+            'id_c_desa' => 'max:255',
+            'nama_pemohon' => 'max:255',
+            'tgl_pemohon' => 'max:255',
+            'no_ktp' => 'max:18',
+            'alamat' => 'max:255',
+            'telepon' => 'max:255',
+            'jenis' => 'max:255',
+            'informasi' => 'max:255',
         ]);
 
 
-        DataPermohonanInformasi::where('nik_mk', $nik_mk)->update($validatedData);
+        DataPermohonanInformasi::where('id_pemohon', $id_pemohon)->update($validatedData);
 
         return back()->with('successUpdatedMasyarakat', 'Data has ben updated');
     }
@@ -149,32 +143,29 @@ class KadesDataPermohonanInformasiController extends Controller
      * @param  \App\Models\DataPermohonanInformasi  $keluarga
      * @return \Illuminate\Http\Response
      */
-    public function destroy($nik_mk)
+    public function destroy($id_pemohon)
     {
-        DataPermohonanInformasi::where('nik_mk', $nik_mk)->delete();
+        DataPermohonanInformasi::where('id_pemohon', $id_pemohon)->delete();
         return back()->with('successDeletedMasyarakat', 'Data has ben deleted');
     }
 
     public function pdf($id_pemohon)
     {
+        $dataPermohonan = DataPermohonanInformasi::where('id_pemohon', $id_pemohon)->first();
+
+        // Ambil field JSON dan ubah ke dalam array
+        $dataJenis = json_decode($dataPermohonan->jenis_permohonan, true);
+
         $data = [
             'title' => 'Data Permohonan Informasi',
             'data' => DataPermohonanInformasi::where('id_pemohon', $id_pemohon)->first(),
+            'no_surat' => NoSurat::where('id_surat', $id_pemohon)->first(),
+            'jenis_informasi' => $dataJenis
+
         ];
+        // dd($data_jenis);
         $customPaper = [0, 0, 567.00, 500.80];
         $pdf = PDF::loadView('kadesDashboard.pdf.DataPermohonanInformasi', $data)->setPaper('customPaper', 'potrait');
         return $pdf->stream('data-permohonan-informasi.pdf');
-    }
-
-    public function pdflurah($nik_mk)
-    {
-        $data = [
-            'title' => 'Keterangan Biasa',
-            'surat' => DataPermohonanInformasi::with('pend')->where('nik_mk', $nik_mk)->first(),
-        ];
-
-        $customPaper = [0, 0, 567.00, 500.80];
-        $pdf = Pdf::loadView('adminDashboard.pdf.SuratKetBiasaLurah', $data)->setPaper('customPaper', 'potrait');
-        return $pdf->stream('surat-keterangan-mutasi-keluar.pdf');
     }
 }

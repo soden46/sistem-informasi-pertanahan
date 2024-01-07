@@ -117,7 +117,7 @@
                     <td style="vertical-align: middle;  ">{{ $item->tgl_pemohon }}</td>
                     <td style="vertical-align: middle;  ">{{ $item->no_ktp }}</td>
                     <td style="vertical-align: middle;  ">{{ $item->alamat }}</td>
-                    <td style="vertical-align: middle;  ">{{ $item->no_telp }}</td>
+                    <td style="vertical-align: middle;  ">{{ $item->telepon }}</td>
                     <td style="vertical-align: middle;  ">{{ $item->jenis }}</td>
                     <td style="vertical-align: middle;  ">{{ $item->informasi }}</td>
                     <td style="text-align: center;  ">

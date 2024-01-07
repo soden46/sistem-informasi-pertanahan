@@ -48,8 +48,8 @@ Route::middleware(['auth', 'role:kaspem'])->group(function () {
     Route::controller(DataPersilController::class)->group(function () {
         Route::get('/data-persil', 'index')->name('data-persil')->middleware('auth');
         Route::post('/data-persil/store', 'store')->name('data-persil/store')->middleware('auth');
-        Route::post('/data-persil/{no_kk}', 'update')->name('data-persil/update')->middleware('auth');
-        Route::delete('/data-persil/{no_kk}', 'destroy')->name('data-persil')->middleware('auth');
+        Route::post('/data-persil/{id_persil}', 'update')->name('data-persil/update')->middleware('auth');
+        Route::delete('/data-persil/{id_persil}', 'destroy')->name('data-persil')->middleware('auth');
     });
 
     Route::controller(DataCTanahController::class)->group(
@@ -77,11 +77,9 @@ Route::middleware(['auth', 'role:kaspem'])->group(function () {
         function () {
             Route::get('/permohonan-informasi', 'index')->name('permohonan-informasi')->middleware('auth');
             Route::post('/permohonan-informasi/save', 'save')->name('permohonan-informasi/save')->middleware('auth');
-            Route::post('/permohonan-informasi/{id_pemohon}', 'update')->name('permohonan-informasi')->middleware('auth');
+            Route::post('/permohonan-informasi/{id_pemohon}', 'update')->name('permohonan-informasi/update')->middleware('auth');
             Route::delete('/permohonan-informasi/{id_pemohon}', 'destroy')->name('permohonan-informasi')->middleware('auth');
             Route::post('/permohonan-informasi/verif/{id_pemohon}', 'update')->name('permohonan-informasi/verif');
-            Route::get('/permohonan-informasi/pdf/{id_pemohon}', 'pdf')->name('permohonan-informasi/pdf')->middleware('auth');
-            Route::get('/permohonan-informasi/pdflurah/{id_pemohon}', 'pdflurah')->name('permohonan-informasi/pdflurah')->middleware('auth');
         }
     );
 
@@ -114,6 +112,7 @@ Route::middleware(['auth', 'role:kades'])->group(function () {
             Route::post('/kades/data-c-tanah/store', 'store')->name('kades/data-c-tanah/store')->middleware('auth');
             Route::post('/kades/data-c-tanah/{id_c_desa}', 'update')->name('kades/data-c-tanah/update')->middleware('auth');
             Route::delete('/kades/data-c-tanah/{id_c_desa}', 'destroy')->name('kades/data-c-tanah')->middleware('auth');
+            Route::get('/kades/data-c-tanah/pdf/{id_c_desa}', 'pdf')->name('kades/data-c-tanah/pdf')->middleware('auth');
         }
     );
 
@@ -124,7 +123,6 @@ Route::middleware(['auth', 'role:kades'])->group(function () {
             Route::post('/kades/data-pemilik-tanah/{id_pemilik}', 'update')->name('kades/data-pemilik-tanah')->middleware('auth');
             Route::delete('/kades/data-pemilik-tanah/{id_pemilik}', 'destroy')->name('kades/data-pemilik-tanah')->middleware('auth');
             Route::get('/kades/data-pemilik-tanah/pdf/{id_pemilik}', 'pdf')->name('kades/data-pemilik-tanah/pdf')->middleware('auth');
-            Route::get('/kades/data-pemilik-tanah/pdflurah/{id_pemilik}', 'pdflurah')->name('kades/data-pemilik-tanah/pdflurah')->middleware('auth');
         }
     );
 

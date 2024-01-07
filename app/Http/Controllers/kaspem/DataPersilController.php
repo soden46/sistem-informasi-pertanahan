@@ -55,7 +55,6 @@ class DataPersilController extends Controller
     {
         $validatedData = $request->validate([
             'id_persil' => 'required|max:11',
-            'id_kades' => 'required|max:11',
             'lokasi' => 'required|max:255',
             'luas_persil' => 'required',
         ]);
@@ -99,7 +98,6 @@ class DataPersilController extends Controller
     {
         $rules = [
             'id_persil' => 'max:11',
-            'id_ kades' => 'max:11',
             'lokasi' => 'max:255',
             'luas_persil' => 'max:255',
             'verifikasi' => 'max:255',
@@ -121,7 +119,7 @@ class DataPersilController extends Controller
      */
     public function destroy($id_persil)
     {
-        Penduduk::where('id_persil', $id_persil)->delete();
-        return redirect('/data-penduduk')->with('successDeletedMasyarakat', 'Data has ben deleted');
+        DataPersil::where('id_persil', $id_persil)->delete();
+        return redirect('/data-persil')->with('successDeletedPersil', 'Data has ben deleted');
     }
 }

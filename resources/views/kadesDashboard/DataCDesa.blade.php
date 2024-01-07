@@ -77,8 +77,7 @@
                     <th>Kelas Tanah</th>
                     <th>ID Kasi</th>
                     <th>ID Pemilik</th>
-                    <th>Verifikasi</th>
-                    <th style="text-align: center">Action</th>
+                    <th style="text-align: center">Cetak</th>
                 </tr>
                 @foreach ($cDesa as $index => $item)
                 <tr style="width: 100%">
@@ -88,15 +87,7 @@
                     <td style="vertical-align: middle;  ">{{ $item->id_kasi }}</td>
                     <td style="vertical-align: middle;  ">{{ $item->id_pemilik }}</td>
                     <td style="text-align: center;  ">
-                        @if($item->verifikasi=="Belum Diverifikasi")
-                        <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#verifikasibayi{{ $item->id_c_desa }}">Verifikasi</button>
-                        @else
-                        <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#batalverifikasi{{ $item->id_c_desa }}">Batal Verifikasi</button>
-                        @endif
-                    </td>
-                    <td style="text-align: center;  ">
-                        <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#editDataCDesa{{ $item->id_c_desa }}">Edit</button>
-                        <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#hapusverifikasi{{ $item->id_c_desa }}">Hapus</button>
+                        <a href="{{route('kades/data-c-tanah/pdf',$item->id_pemohon) }}" class="btn btn-success" target="_blank">PDF</a>
                     </td>
                 </tr>
 

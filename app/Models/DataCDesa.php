@@ -14,4 +14,9 @@ class DataCDesa extends Model
 
     protected $primary = 'id_c_desa';
     protected $guarded = [];
+
+    public function pemilik()
+    {
+        return $this->belongsTo(DataPemilikTanah::class, 'id_pemilik', 'id_pemilik');
+    }
 }

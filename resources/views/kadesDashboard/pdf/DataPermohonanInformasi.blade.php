@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Data Permohonan Informasi</title>
+    <title>{{$title}}</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
     <style>
         body {
@@ -50,8 +50,8 @@
 
         #foto {
             float: left;
-            width: 120px;
-            height: 150px;
+            width: 65px;
+            height: 73px;
             background: transparent;
         }
 
@@ -105,99 +105,67 @@
     <div class="card">
         <div class="card-body">
             <div class="header">
-                <img src="{{public_path('storage/asset/sleman.png')}}" id="foto" alt="Logo" height="75px" />
-                <h1 class="text-center">PEMERINTAH KABUPATEN SLEMAN</h1>
-                <p class="text-center">KAPONEWON GAMPING</p>
-                <h1 class="text-center">PEMERINTAH KALURAHAN AMBARKETAWANG</h1>
-                <h1 class="text-center"><img src="{{public_path('storage/asset/aksara.png')}}" id="foto2" alt="Logo" /></h1>
-                <p class="text-center">Jalan Wates KM 5, Ambarketawang, Gamping, Sleman,55294</p>
-                <p class="text-center">Telepon (0274) 797496</p>
-                <p class="text-center">Laman: https://ambarketawang.sidesimanis.slemankab.go.id</p>
+                <img src="{{public_path('storage/asset/sragen.webp')}}" id="foto" alt="Logo" width="45px" />
+                <h1 class="text-center">PERMOHONAN INFORMASI TANAH</h1>
+                <h1 class="text-center">DESA GENEGDUWUR, KECAMATAN GEMOLONG, KABUPATEN SRAGEN</h1>
             </div>
             <div class="divider py-1 bg-dark mb-3 mt-2"></div>
-            <div class="header2">
-                <h1 class="text-center">SURAT KETERANGAN BEDA NAMA</h1>
-            </div>
-            <p class="mt-2">Yang bertanda tangan dibawah ini:</p>
+            <p class="text-center">Nomor: {{$no_surat->nomor}}</p>
             <table class="font-12">
                 <tr>
-                    <td width="200px">A. Nama</td>
+                    <td width="200px">TANGGAL</td>
                     <td width="10px">:</td>
-                    <td>Erma Heni Surya, S.E.</td>
+                    <td>{{date('d/m/Y',strtotime($data->tgl_pemohon))}}</td>
                 </tr>
                 <tr>
-                    <td width="200px">B. Jabatan</td>
+                    <td width="200px">ID PEMOHON</td>
                     <td width="10px">:</td>
-                    <td>Carik</td>
+                    <td>{{$data->id_pemohon}}</td>
+                </tr>
+                <tr>
+                    <td width="200px">NAMA PEMOHON</td>
+                    <td width="10px">:</td>
+                    <td>{{$data->nama_pemohon}}</td>
+                </tr>
+                <tr>
+                    <td width="200px">NO KTP</td>
+                    <td width="10px">:</td>
+                    <td>{{$data->no_ktp}}</td>
+                </tr>
+                <tr>
+                    <td width="200px">ALAMAT</td>
+                    <td width="10px">:</td>
+                    <td>{{$data->alamat}}</td>
+                </tr>
+                <tr>
+                    <td width="200px">TELEPON</td>
+                    <td width="10px">:</td>
+                    <td>{{$data->telepon}}</td>
+                </tr>
+                <tr>
+                    @foreach($jenis_informasi as $jenis)
+                    <td width="200px">JENIS PERMOHONAN</td>
+                    <td width="10px">:</td>
+                    <td>{{ $jenis}}</td>
+                    @endforeach
+                </tr>
+                <tr>
+                    <td width="200px">JENIS TANAH</td>
+                    <td width="10px">:</td>
+                    <td>{{$data->jenis_tanah}}</td>
                 </tr>
             </table>
-            <p class="mt-2">Berdasarkan data pemohon, dengan ini Pemerintah Kalurahan Ambarketawang menerangkan bahwa:</p>
-            <table class="font-12">
-                <tr>
-                    <td width="200px">A. Nama</td>
-                    <td width="10px">:</td>
-                    <td>{{$surat->pend->nama}}</td>
-                </tr>
-                <tr>
-                    <td width="200px">B. NIK</td>
-                    <td width="10px">:</td>
-                    <td>{{$surat->nik}}</td>
-                </tr>
-                <tr>
-                    <td width="200px">C. NO KK</td>
-                    <td width="10px">:</td>
-                    <td>{{$surat->pend->no_kk}}</td>
-                </tr>
-                <tr>
-                    <td width="200px">D. Tempat, Tanggal Lahir</td>
-                    <td width="10px">:</td>
-                    <td>{{$surat->pend->tempat_lahir}}, {{ $surat->pend->tgl_lahir}}</td>
-                </tr>
-                <tr>
-                    <td width="200px">F. Agama</td>
-                    <td width="10px">:</td>
-                    <td>{{$surat->pend->agama}}</td>
-                </tr>
-                <tr>
-                    <td width="200px">E. Alamat</td>
-                    <td width="10px">:</td>
-                    <td>{{$surat->pend->padukuhan}}, RT {{ $surat->pend->rt}} / RW {{ $surat->pend->rw}}</td>
-                </tr>
-            </table>
-            <br>
-            <p>adalah orang yang sama dengan yang tertulis di ............................. sama dengan data :</p>
-            <table class="font-12">
-                <tr>
-                    <td width="200px">A. Nama</td>
-                    <td width="10px">:</td>
-                    <td>{{$surat->pend->nama}}</td>
-                </tr>
-                <td width="200px">B. Tempat, Tanggal Lahir</td>
-                <td width="10px">:</td>
-                <td>{{$surat->pend->tempat_lahir}}, {{ $surat->pend->tgl_lahir}}</td>
-                </tr>
-                <tr>
-                    <td width="200px">C. Alamat</td>
-                    <td width="10px">:</td>
-                    <td>{{$surat->pend->padukuhan}}, RT {{ $surat->pend->rt}} / RW {{ $surat->pend->rw}}</td>
-                </tr>
-                <tr>
-                    <td width="200px">D. Keperluan</td>
-                    <td width="10px">:</td>
-                    <td>{{$surat->keperluan_skbn}}</td>
-                </tr>
-            </table>
-            <p class="mb-2 mt-2">Demikian surat keterangan ini kami buat dengan sebenarnya agar dapat dipergunakan sebagaimana mestinya.</p>
             <div class="tandatangan">
 
                 <br>
 
                 <p style="padding-bottom:100px">
-                    Ambarketawang, ......................... {{ date('Y') }}</br>
-                    Pemerintah Kalurahan Ambarketawang</p>
+                    Genengduwur, ......................... {{ date('Y') }}</br>
+                    Mengetahui</br>
+                    Kepala Desa Genengduwur</p>
 
 
-                <p>Erma Heni Surya, S.E.</p>
+                <p>Sri Lestari, S.H.</p>
             </div>
         </div>
     </div>

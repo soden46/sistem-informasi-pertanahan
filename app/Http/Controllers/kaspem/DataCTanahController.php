@@ -23,14 +23,14 @@ class DataCTanahController extends Controller
         if ($cari != NULL) {
             return view('adminDashboard.DataCDesa', [
                 'title' => 'Data C Desa',
-                'cDesa' => DataCDesa::orWhere('id_c_desa', 'like', "%" . $cari . "%")
+                'cDesa' => DataCDesa::with('pemilik')->Where('id_c_desa', 'like', "%" . $cari . "%")
                     ->orWhere('kelas_tanah', 'like', "%" . $cari . "%")
                     ->orWhere('id_pemilik', 'like', "%" . $cari . "%")->paginate(10),
             ]);
         } else {
             return view('adminDashboard.DataCDesa', [
                 'title' => 'Data C Desa',
-                'cDesa' => DataCDesa::paginate(10)
+                'cDesa' => DataCDesa::with('pemilik')->paginate(10)
             ]);
         }
     }
@@ -55,13 +55,8 @@ class DataCTanahController extends Controller
     {
         $validatedData = $request->validate([
             'id_c_desa' => 'required|max:12',
-            'kelas_tanah' => 'required|max:128',
-            'id_kasi' => 'required|max:11',
             'id_pemilik' => 'required|max:11',
             'id_persil' => 'required|max:11',
-            'id_history' => 'required|max:11',
-            'id_kades' => 'required|max:11',
-            'status_tanah' => 'required|max:50',
             'luas_tanah' => 'required',
             'tanggal' => 'required',
             'keterangan' => 'required',
@@ -78,28 +73,6 @@ class DataCTanahController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Penduduk  $masyarakat
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Penduduk $masyarakat)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Penduduk  $masyarakat
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Penduduk $masyarakat)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -110,16 +83,10 @@ class DataCTanahController extends Controller
     {
         $rules = [
             'id_c_desa' => 'max:12',
-            'kelas_tanah' => 'max:128',
-            'id_kasi' => 'max:11',
             'id_pemilik' => 'max:11',
             'id_persil' => 'max:11',
-            'id_history' => 'max:11',
-            'id_kades' => 'max:11',
-            'status_tanah' => 'max:50',
             'luas_tanah' => '',
             'tanggal' => '',
-            'dijual' => '',
             'keterangan' => '',
             'batas_utara' => 'max:128',
             'batas_timur' => 'max:128',
@@ -141,9 +108,9 @@ class DataCTanahController extends Controller
      * @param  \App\Models\Penduduk  $masyarakat
      * @return \Illuminate\Http\Response
      */
-    public function destroy($nik)
+    public function destroy($id_c_desa)
     {
-        Penduduk::where('nik', $nik)->delete();
-        return redirect('/data-penduduk')->with('successDeletedMasyarakat', 'Data has ben deleted');
+        DataCDesa::where('id_c_desa', $id_c_desa)->delete();
+        return redirect('/data-c-tanah')->with('successDeletedCDesa', 'Data has ben deleted');
     }
 }

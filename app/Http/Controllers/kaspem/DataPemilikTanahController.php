@@ -68,28 +68,6 @@ class DataPemilikTanahController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\MutasiKeluar  $masyarakat
-     * @return \Illuminate\Http\Response
-     */
-    public function show(MutasiKeluar $masyarakat)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\MutasiKeluar  $masyarakat
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(MutasiKeluar $masyarakat)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -117,36 +95,9 @@ class DataPemilikTanahController extends Controller
      * @param  \App\Models\MutasiKeluar  $keluarga
      * @return \Illuminate\Http\Response
      */
-    public function destroy($nik_mk)
+    public function destroy($id_pemilik)
     {
-        MutasiKeluar::where('nik_mk', $nik_mk)->delete();
-        return back()->with('successDeletedMasyarakat', 'Data has ben deleted');
-    }
-
-    public function pdf($nik_mk)
-    {
-        $data = [
-            'title' => 'Mutasi Keluar',
-            'profil' => ProfilDesa::firstWhere('id', 1),
-            'surat' => MutasiKeluar::with('pend', 'kel1', 'kel2')->where('nik_mk', $nik_mk)->first(),
-            'pendu' => Penduduk::get(),
-        ];
-        $customPaper = [0, 0, 567.00, 500.80];
-        $pdf = PDF::loadView('adminDashboard.pdf.SuratMutasiKeluar', $data)->setPaper('customPaper', 'potrait');
-        return $pdf->stream('surat-permohonan-mutasi-keluar.pdf');
-    }
-
-    public function pdflurah($nik_mk)
-    {
-        $data = [
-            'title' => 'Keterangan Biasa',
-            'profil' => ProfilDesa::firstWhere('id', 1),
-            'surat' => MutasiKeluar::with('pend')->where('nik_mk', $nik_mk)->first(),
-            'pendu' => Penduduk::get()
-        ];
-
-        $customPaper = [0, 0, 567.00, 500.80];
-        $pdf = Pdf::loadView('adminDashboard.pdf.SuratKetBiasaLurah', $data)->setPaper('customPaper', 'potrait');
-        return $pdf->stream('surat-keterangan-mutasi-keluar.pdf');
+        DataPemilikTanah::where('id_pemilik', $id_pemilik)->delete();
+        return back()->with('successDeletedPemilik', 'Data has ben deleted');
     }
 }

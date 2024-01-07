@@ -3,8 +3,7 @@
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="w-100" style="vertical-align: middle">
-        <h5 style="text-align: center; vertical-align: middle; color: white; text-transform: uppercase">SISTEM INFORMASI PELAYANAN DAN PENGELOLAAN
-            DATA PERTANAHAN</h5>
+        <h5 style="text-align: center; vertical-align: middle; color: white; text-transform: uppercase">SISTEM INFORMASI PERTANAHAN BUKU C DESA</h5>
     </div>
 
 </header>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\kaspem;
 use App\Http\Controllers\Controller;
 use App\Models\DataPermohonanInformasi;
 use App\Models\MutasiKeluar;
+use App\Models\NoSurat;
 use App\Models\Penduduk;
 use App\Models\ProfilDesa;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -54,134 +55,102 @@ class DataPermohonanInformasiController extends Controller
     public function save(Request $request)
     {
         $validatedData = $request->validate([
-            'id_pemohon' => 'required',
-            'id_persil' => 'required|max:16',
-            'id_c_desa' => 'required|max:255',
-            'nama_pemohon' => 'required|max:255',
-            'tgl_pemohon' => 'required|max:255',
-            'no_ktp' => 'required|max:18',
-            'alamat' => 'max:255',
-            'telepon' => 'max:255',
-            'jenis' => 'max:255',
-            'informasi' => 'max:255',
+            'id_persil' => 'required',
+            'id_c_desa' => 'required',
+            'nama_pemohon' => 'required',
+            'tgl_pemohon' => 'required|date',
+            'no_ktp' => 'required',
+            'alamat' => 'required',
+            'telepon' => 'required',
+            'jenis_permohonan' => 'required|array',
+            'jenis_tanah' => 'required' // Memastikan setidaknya satu jenis dipilih
         ]);
 
-        // dd($validatedData);
-        DataPermohonanInformasi::create($validatedData);
+        // Mengambil jenis permohonan yang dipilih dan menyimpannya sebagai array JSON
+        $jenisPermohonan = json_encode($validatedData['jenis_permohonan']);
 
-        return back()->with('successCreatedPermohonan', 'Data has ben created');
-    }
+        // Menyimpan data ke dalam database atau melakukan apa pun yang diperlukan
+        // Misalnya, DataPermohonan adalah model yang sesuai dengan tabel di database Anda
+        $permohonan = new DataPermohonanInformasi([
+            'id_persil' => $validatedData['id_persil'],
+            'id_c_desa' => $validatedData['id_c_desa'],
+            'nama_pemohon' => $validatedData['nama_pemohon'],
+            'tgl_pemohon' => $validatedData['tgl_pemohon'],
+            'no_ktp' => $validatedData['no_ktp'],
+            'alamat' => $validatedData['alamat'],
+            'telepon' => $validatedData['telepon'],
+            'jenis_permohonan' => $jenisPermohonan,
+            'jenis_tanah' => $validatedData['jenis_tanah'] // Menyimpan jenis permohonan dalam format JSON
+        ]);
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\MutasiKeluar  $masyarakat
-     * @return \Illuminate\Http\Response
-     */
-    public function show(MutasiKeluar $masyarakat)
-    {
-        //
-    }
+        // Simpan data ke dalam database
+        $permohonan->save();
+        // Mengambil ID dari data yang baru saja disimpan
+        $idBaru = $permohonan->id;
+        // dd($idBaru);
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\MutasiKeluar  $masyarakat
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(MutasiKeluar $masyarakat)
-    {
-        //
+        // Ambil bulan saat ini dalam bentuk angka (1-12)
+        $bulanAngka = date('n');
+        // Ambil tahun saat ini 
+        $tahunAngka = date('Y');
+
+        // Daftar bulan Romawi
+        $bulanRomawi = [
+            1 => 'I', 2 => 'II', 3 => 'III', 4 => 'IV', 5 => 'V', 6 => 'VI',
+            7 => 'VII', 8 => 'VIII', 9 => 'IX', 10 => 'X', 11 => 'XI', 12 => 'XII'
+        ];
+
+        // Konversi angka bulan menjadi bulan Romawi
+        $bulanRomawiSekarang = $bulanRomawi[$bulanAngka];
+
+        NoSurat::create([
+            'id_surat' => $idBaru,
+            'nama_surat' => 'DPI',
+            'kebutuhan' => 'Permohonan Informasi',
+            'bulan_romawi' => $bulanRomawiSekarang,
+            'nomor' => 'DPI / ' . $bulanRomawiSekarang . " / " . $tahunAngka,
+        ]);
+
+        return redirect('/permohonan-informasi')->with('successCreatedPermohonan', 'Data permohonan informasi berhasil disimpan!');
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\MutasiKeluar  $masyarakat
+     * @param  \App\Models\DataPermohonanInformasi  $masyarakat
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, MutasiKeluar $MutasiKeluar, $nik_mk)
+    public function update(Request $request, DataPermohonanInformasi  $DataPermohonanInformasi, $id_pemohon)
     {
         $validatedData = $request->validate([
-            'nik_mk' => 'max:16',
-            'alamat_tujuan_mk' => 'max:255',
-            'prov_tuju' => 'max:255',
-            'nik1' => 'max:16',
-            'nama1' => 'max:255',
-            'jk1' => 'max:255',
-            'agama1' => 'max:255',
-            'sts_kawin1' => 'max:255',
-            'ket_kel1' => 'max:255',
-            'nik2' => 'max:16',
-            'nama2' => 'max:255',
-            'jk2' => 'max:255',
-            'agama2' => 'max:255',
-            'sts_kawin2' => 'max:255',
-            'ket_kel2' => 'max:255',
-            'nik3' => 'max:16',
-            'nama3' => 'max:255',
-            'jk3' => 'max:255',
-            'agama3' => 'max:255',
-            'sts_kawin3' => 'max:255',
-            'ket_kel3' => 'max:255',
-            'nik5' => 'max:16',
-            'nama5' => 'max:255',
-            'jk5' => 'max:255',
-            'agama5' => 'max:255',
-            'sts_kawin5' => 'max:255',
-            'ket_kel5' => 'max:255',
-            'nik6' => 'max:16',
-            'nama6' => 'max:255',
-            'jk6' => 'max:255',
-            'agama6' => 'max:255',
-            'sts_kawin6' => 'max:255',
-            'ket_kel6' => 'max:255',
-            'verifikasi' => 'max:255'
+            'id_pemohon' => 'max:11',
+            'id_persil' => 'max:16',
+            'id_c_desa' => 'max:255',
+            'nama_pemohon' => 'max:255',
+            'tgl_pemohon' => 'max:255',
+            'no_ktp' => 'max:18',
+            'alamat' => 'max:255',
+            'telepon' => 'max:255',
+            'jenis_permohonan' => 'max:255',
+            'jenis_tanah' => 'max:255',
         ]);
+        // Mengambil jenis permohonan yang dipilih dan menyimpannya sebagai array JSON
+        $validatedData['jenis_permohonan'] = json_encode($validatedData['jenis_permohonan']);
+        DataPermohonanInformasi::where('id_pemohon', $id_pemohon)->update($validatedData);
 
-
-        MutasiKeluar::where('nik_mk', $nik_mk)->update($validatedData);
-
-        return back()->with('successUpdatedMasyarakat', 'Data has ben updated');
+        return back()->with('successUpdatedPermohonan', 'Data has ben updated');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\MutasiKeluar  $keluarga
+     * @param  \App\Models\DataPermohonanInformasi  $permohonan
      * @return \Illuminate\Http\Response
      */
-    public function destroy($nik_mk)
+    public function destroy($id_pemohon)
     {
-        MutasiKeluar::where('nik_mk', $nik_mk)->delete();
-        return back()->with('successDeletedMasyarakat', 'Data has ben deleted');
-    }
-
-    public function pdf($nik_mk)
-    {
-        $data = [
-            'title' => 'Mutasi Keluar',
-            'profil' => ProfilDesa::firstWhere('id', 1),
-            'surat' => MutasiKeluar::with('pend', 'kel1', 'kel2')->where('nik_mk', $nik_mk)->first(),
-            'pendu' => Penduduk::get(),
-        ];
-        $customPaper = [0, 0, 567.00, 500.80];
-        $pdf = PDF::loadView('adminDashboard.pdf.SuratMutasiKeluar', $data)->setPaper('customPaper', 'potrait');
-        return $pdf->stream('surat-permohonan-mutasi-keluar.pdf');
-    }
-
-    public function pdflurah($nik_mk)
-    {
-        $data = [
-            'title' => 'Keterangan Biasa',
-            'profil' => ProfilDesa::firstWhere('id', 1),
-            'surat' => MutasiKeluar::with('pend')->where('nik_mk', $nik_mk)->first(),
-            'pendu' => Penduduk::get()
-        ];
-
-        $customPaper = [0, 0, 567.00, 500.80];
-        $pdf = Pdf::loadView('adminDashboard.pdf.SuratKetBiasaLurah', $data)->setPaper('customPaper', 'potrait');
-        return $pdf->stream('surat-keterangan-mutasi-keluar.pdf');
+        DataPermohonanInformasi::where('id_pemohon', $id_pemohon)->delete();
+        return back()->with('successDeletedPemohon', 'Data has ben deleted');
     }
 }

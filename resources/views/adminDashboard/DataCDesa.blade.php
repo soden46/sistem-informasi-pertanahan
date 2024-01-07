@@ -72,30 +72,6 @@
                                 </div>
 
                                 <div class="mb-3">
-                                    <label for="kelas_tanah" class="form-label"><b>Kelas Tanah</b></label>
-
-                                    <input type="text" name="kelas_tanah" id="kelas_tanah" class="form-control @error('kelas_tanah') is-invalid @enderror" required value="{{ old('kelas_tanah') }}" autocomplete="off" placeholder="Input Kelas Tanah">
-
-                                    @error('kelas_tanah')
-                                    <div class="invalid-feedback">
-                                        <p style="text-align: left">{{ $message }}</p>
-                                    </div>
-                                    @enderror
-                                </div>
-
-                                <div class="mb-3">
-                                    <label for="id_kasi" class="form-label"><b>ID Kasi</b></label>
-
-                                    <input type="text" name="id_kasi" id="id_kasi" class="form-control @error('id_kasi') is-invalid @enderror" required value="{{ old('id_kasi') }}" autocomplete="off" placeholder="Input ID Kasi">
-
-                                    @error('id_kasi')
-                                    <div class="invalid-feedback">
-                                        <p style="text-align: left">{{ $message }}</p>
-                                    </div>
-                                    @enderror
-                                </div>
-
-                                <div class="mb-3">
                                     <label for="id_pemilik" class="form-label"><b>ID Pemilik</b></label>
 
                                     <input type="text" name="id_pemilik" id="id_pemilik" class="form-control @error('id_pemilik') is-invalid @enderror" required value="{{ old('id_pemilik') }}" autocomplete="off" placeholder="Input ID Pemilik">
@@ -113,42 +89,6 @@
                                     <input type="text" name="id_persil" id="id_persil" class="form-control @error('id_persil') is-invalid @enderror" required value="{{ old('id_persil') }}" autocomplete="off" placeholder="Input ID Persil">
 
                                     @error('id_persil')
-                                    <div class="invalid-feedback">
-                                        <p style="text-align: left">{{ $message }}</p>
-                                    </div>
-                                    @enderror
-                                </div>
-
-                                <div class="mb-3">
-                                    <label for="id_history" class="form-label"><b>ID History</b></label>
-
-                                    <input type="text" name="id_history" id="id_history" class="form-control @error('id_history') is-invalid @enderror" required value="{{ old('id_history') }}" autocomplete="off" placeholder="Input ID History">
-
-                                    @error('id_history')
-                                    <div class="invalid-feedback">
-                                        <p style="text-align: left">{{ $message }}</p>
-                                    </div>
-                                    @enderror
-                                </div>
-
-                                <div class="mb-3">
-                                    <label for="id_kades" class="form-label"><b>ID Kades</b></label>
-
-                                    <input type="text" name="id_kades" id="id_kades" class="form-control @error('id_kades') is-invalid @enderror" required value="{{ old('id_kades') }}" autocomplete="off" placeholder="Input ID Kades">
-
-                                    @error('id_kades')
-                                    <div class="invalid-feedback">
-                                        <p style="text-align: left">{{ $message }}</p>
-                                    </div>
-                                    @enderror
-                                </div>
-
-                                <div class="mb-3">
-                                    <label for="status_tanah" class="form-label"><b>Status Tanah</b></label>
-
-                                    <input type="text" name="status_tanah" id="status_tanah" class="form-control @error('status_tanah') is-invalid @enderror" required value="{{ old('status_tanah') }}" autocomplete="off" placeholder="Input Status Tanah">
-
-                                    @error('status_tanah')
                                     <div class="invalid-feedback">
                                         <p style="text-align: left">{{ $message }}</p>
                                     </div>
@@ -182,7 +122,7 @@
                                 <div class="mb-3">
                                     <label for="keterangan" class="form-label"><b>Keterangan</b></label>
 
-                                    <input type="text" name="keterangan" id="keterangan" class="form-control @error('keterangan') is-invalid @enderror" required value="{{ old('keterangan') }}" autocomplete="off" placeholder="Input ID Kades">
+                                    <input type="text" name="keterangan" id="keterangan" class="form-control @error('keterangan') is-invalid @enderror" required value="{{ old('keterangan') }}" autocomplete="off" placeholder="Input Keterangan">
 
                                     @error('keterangan')
                                     <div class="invalid-feedback">
@@ -279,46 +219,50 @@
                 <tr>
                     <th>No</th>
                     <th>ID C Desa</th>
-                    <th>Kelas Tanah</th>
-                    <th>ID Kasi</th>
-                    <th>ID Pemilik</th>
-                    <th>Verifikasi</th>
+                    <th>ID Persil</th>
+                    <th>Nama Pemilik</th>
+                    <th>Luas Tanah (M2)</th>
+                    <th>Tanggal</th>
+                    <th>Pengesahan</th>
+                    <!-- <th>Verifikasi</th> -->
                     <th style="text-align: center">Action</th>
                 </tr>
                 @foreach ($cDesa as $index => $item)
                 <tr style="width: 100%">
                     <td style="vertical-align: middle; width: 5%; ">{{ $index + $cDesa->firstItem() }}</td>
                     <td style="vertical-align: middle;  ">{{ $item->id_c_desa}}</td>
-                    <td style="vertical-align: middle;  ">{{ $item->kelas_tanah }}</td>
-                    <td style="vertical-align: middle;  ">{{ $item->id_kasi }}</td>
-                    <td style="vertical-align: middle;  ">{{ $item->id_pemilik }}</td>
-                    <td style="text-align: center;  ">
+                    <td style="vertical-align: middle;  ">{{ $item->id_persil }}</td>
+                    <td style="vertical-align: middle;  ">{{ $item->pemilik->nama_pemilik ?? '' }}</td>
+                    <td style="vertical-align: middle;  ">{{ $item->luas_tanah }}</td>
+                    <td style="vertical-align: middle;  ">{{ date('d/m/Y', strtotime($item->tanggal)) }}</td>
+                    <td style="vertical-align: middle;  ">{{$item->verifikasi }}</td>
+                    <!-- <td style="text-align: center;  ">
                         @if($item->verifikasi=="Belum Diverifikasi")
                         <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#verifikasibayi{{ $item->id_c_desa }}">Verifikasi</button>
                         @else
                         <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#batalverifikasi{{ $item->id_c_desa }}">Batal Verifikasi</button>
                         @endif
-                    </td>
+                    </td> -->
                     <td style="text-align: center;  ">
                         <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#editDataCDesa{{ $item->id_c_desa }}">Edit</button>
-                        <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#hapusverifikasi{{ $item->id_c_desa }}">Hapus</button>
+                        <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#hapusDataCDesa{{ $item->id_c_desa }}">Hapus</button>
                     </td>
                 </tr>
 
                 <!-- Modal delete-->
-                <div class="modal fade" id="staticBackdrop{{ $item->nik}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal fade" id="hapusDataCDesa{{ $item->id_c_desa}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="hapusDataCDesaLabel" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h1 class="modal-title fs-5" id="staticBackdropLabel">Delete Data C Desa</h1>
+                                <h1 class="modal-title fs-5" id="hapusDataCDesaLabel">Delete Data C Desa</h1>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                                <p>Apakah anda yakin untuk menghapus data <b>{{ $item->nama }}</b></p>
+                                <p>Apakah anda yakin untuk menghapus data dengan ID <b>{{ $item->id_c_desa }}</b></p>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-warning" data-bs-dismiss="modal">Cancel</button>
-                                <form action="{{route('data-persil', $item->id_c_desa) }}" method="post">
+                                <form action="{{route('data-c-tanah', $item->id_c_desa) }}" method="post">
                                     @method('delete')
                                     @csrf
                                     <button type="submit" class="btn btn-danger">Deleted</button>
@@ -346,18 +290,6 @@
                                         <input type="text" name="id_c_desa" id="id_c_desa" class="form-control @error('id_c_desa') is-invalid @enderror" required value="{{ $item->id_c_desa}}" autocomplete="off" placeholder="Input ID C Desa">
 
                                         @error('id_c_desa')
-                                        <div class="invalid-feedback">
-                                            <p style="text-align: left">{{ $message }}</p>
-                                        </div>
-                                        @enderror
-                                    </div>
-
-                                    <div class="mb-3">
-                                        <label for="kelas_tanah" class="form-label"><b>Kelas Tanah</b></label>
-
-                                        <input type="text" name="kelas_tanah" id="kelas_tanah" class="form-control @error('kelas_tanah') is-invalid @enderror" required value="{{ $item->kelas_tanah}}" autocomplete="off" placeholder="Input Kelas Tanah">
-
-                                        @error('kelas_tanah')
                                         <div class="invalid-feedback">
                                             <p style="text-align: left">{{ $message }}</p>
                                         </div>
@@ -394,18 +326,6 @@
                                         <input type="text" name="id_persil" id="id_persil" class="form-control @error('id_persil') is-invalid @enderror" required value="{{ $item->id_persil }}" autocomplete="off" placeholder="Input ID Persil">
 
                                         @error('id_persil')
-                                        <div class="invalid-feedback">
-                                            <p style="text-align: left">{{ $message }}</p>
-                                        </div>
-                                        @enderror
-                                    </div>
-
-                                    <div class="mb-3">
-                                        <label for="id_history" class="form-label"><b>ID History</b></label>
-
-                                        <input type="text" name="id_history" id="id_history" class="form-control @error('id_history') is-invalid @enderror" required value="{{ $item->id_history }}" autocomplete="off" placeholder="Input ID History">
-
-                                        @error('id_history')
                                         <div class="invalid-feedback">
                                             <p style="text-align: left">{{ $message }}</p>
                                         </div>

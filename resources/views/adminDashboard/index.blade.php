@@ -39,7 +39,7 @@
                     <div class="d-flex">
                         <div style="width: 12rem">
                             <h6 style="color: red">Data C Desa</h6>
-                            <h4>Dat C Desa</h4>
+                            <h4>Data C Desa</h4>
                         </div>
                         <div style="width: 4rem; ">
                             <h1><span style="color: black; vertical-align: middle" class="mainIcon bi bi-folder2"></span></h1>

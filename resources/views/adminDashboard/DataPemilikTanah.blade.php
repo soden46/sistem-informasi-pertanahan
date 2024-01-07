@@ -20,20 +20,12 @@
         </div>
         @endif
 
-        @if (session()->has('successDeletedPemilikTanah'))
+        @if (session()->has('successDeletedPemilik'))
         <div class="alert alert-danger alert-dismissible fade show" role="alert">
-            <strong>{{ session('successDeletedPemilikTanah') }}</strong>
+            <strong>{{ session('successDeletedPemilik') }}</strong>
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
         @endif
-
-        @if (session()->has('successDeletedAllData'))
-        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-            <strong>{{ session('successDeletedAllData') }}</strong>
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-        @endif
-
 
         <div>
             <div class="d-flex">
@@ -160,29 +152,22 @@
                     <td style="vertical-align: middle;  ">{{ $item->nama_pemilik }}</td>
                     <td style="vertical-align: middle;  ">{{ $item->no_ktp }}</td>
                     <td style="vertical-align: middle;  ">{{ $item->alamat }}</td>
-                    <!-- <td style="text-align: center;  ">
-                        @if($item->verifikasi=="Belum Diverifikasi")
-                        <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#verifikasibayi{{ $item->id_pemilik }}">Verifikasi</button>
-                        @else
-                        <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#batalverifikasi{{ $item->id_pemilik }}">Batal Verifikasi</button>
-                        @endif
-                    </td> -->
                     <td style="text-align: center;  ">
                         <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#editPemilik{{ $item->id_pemilik }}">Edit</button>
-                        <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#hapusverifikasi{{ $item->id_pemilik }}">Hapus</button>
+                        <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#hapusPemilik{{ $item->id_pemilik }}">Hapus</button>
                     </td>
                 </tr>
 
                 <!-- Modal delete-->
-                <div class="modal fade" id="staticBackdrop{{ $item->id_pemilik}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal fade" id="hapusPemilik{{ $item->id_pemilik}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="hapusPemilikLabel" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h1 class="modal-title fs-5" id="staticBackdropLabel">Delete Data Pemilik</h1>
+                                <h1 class="modal-title fs-5" id="hapusPemilikLabel">Delete Data Pemilik</h1>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                                <p>Apakah anda yakin untuk menghapus data <b>{{ $item->nama_pemilik }}</b></p>
+                                <p>Apakah anda yakin untuk menghapus data dengan nama pemilik <b>{{ $item->nama_pemilik }}</b></p>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-warning" data-bs-dismiss="modal">Cancel</button>
